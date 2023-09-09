@@ -1,39 +1,68 @@
 package com.turingjavaee7.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.turingjavaee7.demo.service.ArithmeticService;
+import com.turingjavaee7.demo.service.PrototypeService;
 import com.turingjavaee7.demo.service.impl.ExampleBean;
+import com.turingjavaee7.demo.service.impl.HelloMessageGenerator;
+import com.turingjavaee7.demo.service.impl.PrototypeBean;
+import com.turingjavaee7.demo.service.impl.PrototypeDemo;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class HomeController {
+	int a;
 	
 	@Autowired
-	ArithmeticService arithService;
-	
+	@Qualifier("arithTwo")
+	private ArithmeticService arithmeticService;
+	/*
+	public void setArithmeticService(ArithmeticService arithService)
+	{
+		log.info("Setter injected for Arithmetic Service");
+		this.arithmeticService = arithService;
+	}
+	*/
+	/*
 	@Autowired
 	ExampleBean exampleBean;
+	*/
+	@Resource(name = "requestScopedBean")
+    HelloMessageGenerator requestScopedBean;
 	
-	public HomeController() {
-		log.info("Home Controller created");
+	public HomeController(ExampleBean exampleBean) {
+		log.info("Home Controller created ");
 	}
+	
 	
 	@GetMapping("/")
 	String home()
 	{
-		log.info("Get / "+ arithService.add(1, 2));
+		
+		log.info("Home controller / "+ this.a);
+		
+		log.info("Get / "+ arithmeticService.add(1, 2));
+		log.info("Service "+ arithmeticService);
+		a++;
+	
 		return "home";
 	}
-	/*
-	@GetMapping("/")
-	String another()
-	{
-		log.info("Another / "+ arithService.add(1, 2));
-		return "home";
-	}*/
+	@GetMapping("/scopes/request")
+    public String getRequestScopeMessage(final Model model) {
+		log.info("HelloMessage Generator "+ this.requestScopedBean);
+        model.addAttribute("previousMessage", requestScopedBean.getMessage());
+        requestScopedBean.setMessage("Good morning!");
+        model.addAttribute("currentMessage", requestScopedBean.getMessage());
+        
+        return "scopesExample";
+    }
+
 }
