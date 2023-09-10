@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Qualifier("arithTwo")
 public class ArithmeticServiceImplTwo implements ArithmeticService{
 
-	ArithmeticServiceImplTwo()
+	public ArithmeticServiceImplTwo()
 	{
 		log.info("Arithmetic Service Impl 2 created");
 	}

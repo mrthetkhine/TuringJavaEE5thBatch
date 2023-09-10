@@ -16,27 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication
 public class SpringDemoApplication {
 
-	@Bean
-	public ExampleBean exampleBean()
-	{
-		log.info("Invoke via factory method");
-		return new ExampleBean();
-	}
 	
-	@Bean
-	@RequestScope
-	public HelloMessageGenerator requestScopedBean() {
-		log.info("HelloMessageBean created ");
-	    return new HelloMessageGenerator();
-	}
-	
-	@Bean
-	@SessionScope
-	public ShoppingCart shoppingCart()
-	{
-		log.info("Shopping cart created ");
-		return new ShoppingCart();
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDemoApplication.class, args);
 	}

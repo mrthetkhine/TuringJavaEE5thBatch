@@ -10,8 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import lombok.extern.slf4j.Slf4j;
 
 
-@Service
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+
 @Slf4j
 public class PrototypeBean implements PrototypeService{
 	public PrototypeBean()

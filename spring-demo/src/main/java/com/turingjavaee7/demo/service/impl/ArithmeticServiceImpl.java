@@ -1,5 +1,6 @@
 package com.turingjavaee7.demo.service.impl;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.turingjavaee7.demo.service.ArithmeticService;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@Primary
 public class ArithmeticServiceImpl implements ArithmeticService{
 
 	ArithmeticServiceImpl()
