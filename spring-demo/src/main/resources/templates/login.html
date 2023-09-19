@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login</title>
+</head>
+
+<body>
+	<h1>Login form</h1>
+	<form action="#" th:action="@{/login}" method="POST" id="loginForm">
+		<fieldset>
+			<legend>Login</legend>
+			<table>
+				<tr>
+					<td>Username</td>
+					<td>
+						<input type="text" id="username" name="username" placeholder="Username" />
+					</td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td>
+						<input type="password" id="password" name="password" placeholder="Password" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button id="login">Login</button>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+</body>
+
+</html>
