@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Home</title>
+  </head>
+ <body>
+    <h1>Book shopping cart</h1>
+    <table>
+    	<thead>
+			<tr> 
+				<th>ID</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<th:block th:each="id : ${cart}">
+				<tr>
+					<td th:text="${id}"></td>
+					
+				</tr>
+			</th:block>
+		</tbody>
+    </table>
+    <form action="#" th:action="@{/books/cart}" method="POST" id="loginForm">
+		<fieldset>
+			<legend>Add to Cart</legend>
+			<table>
+				<tr>
+					<td>Id</td>
+					<td>
+						<input type="text" id="bookId" name="bookId" placeholder="BookId" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center">
+						<button id="login">Add To Cart</button>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+    
+  </body>
+</html>
