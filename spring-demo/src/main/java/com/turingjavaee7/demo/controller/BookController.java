@@ -103,8 +103,41 @@ public class BookController {
 		}
 		
 	}
+	@GetMapping("/edit/{id}")
+	String bookEditForm(Model model,@PathVariable String id)
+	{
+		log.info("Edit book" +id);
+		Book book  = this.bookService.getBookById(id);
+		model.addAttribute("book", book);
+		return "/books/editBook";
+	}
+	@PostMapping("/edit/{id}")
+	String bookEditFormSubmit(Model model,@Valid @ModelAttribute Book book, BindingResult result)
+	{
+		log.info("Edit book post " +book.getId());
+		if(result.hasErrors())
+		{
+			log.info("Book have error ");
+			model.addAttribute("book", book);
+			return  "/books/editBook";
+		}
+		else
+		{
+			this.bookService.updateBook(book);
+			return "redirect:/books";
+		}
+		
+		
 	
-	
+	}
+	@GetMapping("/delete/{id}")
+	String deleteBook(Model model,@PathVariable String id)
+	{
+		log.info("Delete book" +id);
+		this.bookService.deleteBookById(id);
+		
+		return "redirect:/books";
+	}
 	@GetMapping("/cart")
 	String cartForm(Model model)
 	{

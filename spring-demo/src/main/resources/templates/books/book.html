@@ -3,15 +3,21 @@
       xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Home</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} " />
   </head>
  <body>
+ 	Locale<div th:text="${#locale}"></div>
     <h1>Book</h1>
-    <table>
+    <a class="btn btn-primary" th:href="@{/books/new}">
+			New
+	</a>
+    <table class="table table-stripped">
     	<thead>
 			<tr> 
 				<th>ID</th>
 				<th>Title</th>
 				<th>Author</th> 
+				<th>Action</th> 
 			</tr>
 		</thead>
 		<tbody>
@@ -20,6 +26,16 @@
 					<td th:text="${book.id}"></td>
 					<td th:text="${book.title}"></td> 
 					<td th:text="${book.author}"></td>
+					<td>
+					
+						<a class="btn btn-primary" th:href="@{/books/edit/{id}(id=${book.id})}">
+							Edit
+						</a>	
+						&nbsp;
+						<a class="btn btn-primary" th:href="@{/books/delete/{id}(id=${book.id})}">
+							Delete
+						</a>	
+					</td>
 				</tr>
 			</th:block>
 		</tbody>

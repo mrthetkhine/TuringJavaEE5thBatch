@@ -7,9 +7,9 @@
 </head>
 
 <body>
-	<h1>New Book</h1>
+	<h1>Edit Book</h1>
 
-	<form action="#" th:action="@{/books/new}" 
+	<form action="#" th:action="@{/books/edit/{id}(id=${book.id})}" 
 		th:object="${book}" method="POST" id="addNewBookForm">
 		<div class="form-group">
 			<label for="bookId">Book Id</label>
@@ -48,12 +48,8 @@
 			</div>
 		</div>
 	
-		<button type="submit" class="btn btn-primary">Submit</button>
-		<a class="btn btn-primary" th:href="@{/books}">
-			Back
-		</a>
+		<button type="submit" class="btn btn-primary">Update</button>
 	</form>
-	
 </body>
 
 </html>

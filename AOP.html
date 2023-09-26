@@ -1,0 +1,41 @@
+<html>
+    <script>
+        function authCheck()
+        {
+            console.log('Auth Check');
+        }
+        let controller = {
+            method1()
+            {
+                console.log('Method 1');
+            },
+            method2()
+            {
+                console.log('Method 2');
+            },
+            method3()
+            {
+                console.log('Method 3');
+            }
+        }
+        //controller.method1();
+        function secrurityAOP(con)
+        {
+            for(let prop in con)
+            {
+                if(typeof con[prop] =='function')
+                {
+                    //console.log('Prop ',prop);
+                    let oldFunc = con[prop];
+                    con[prop] = function()
+                    {
+                        authCheck();
+                        return oldFunc();
+                    }
+                }
+            }
+        }
+        secrurityAOP(controller);
+        controller.method1();
+    </script>        
+</html>
