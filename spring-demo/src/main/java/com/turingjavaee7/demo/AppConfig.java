@@ -1,10 +1,17 @@
 package com.turingjavaee7.demo;
 
+import java.util.Locale;
+
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import com.turingjavaee7.demo.model.ShoppingCart;
 import com.turingjavaee7.demo.model.Store;
@@ -14,7 +21,7 @@ import com.turingjavaee7.demo.service.impl.HelloMessageGenerator;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Configuration
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer{
 	@Bean
 	public ExampleBean exampleBean()
 	{
@@ -52,5 +59,20 @@ public class AppConfig {
 	public Store<Integer> integerStore() {
 		log.info("Integer store created");
 		return new Store<Integer>();
+	}
+	@Bean
+	public LocaleResolver localeResolver() {
+	    SessionLocaleResolver slr = new SessionLocaleResolver();
+	    slr.setDefaultLocale(Locale.US);
+	    return slr;
+	}
+	@Bean
+	public MessageSource messageSource() {
+	    ReloadableResourceBundleMessageSource messageSource
+	      = new ReloadableResourceBundleMessageSource();
+	    
+	    messageSource.setBasename("classpath:messages");
+	    messageSource.setDefaultEncoding("UTF-8");
+	    return messageSource;
 	}
 }

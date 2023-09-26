@@ -36,4 +36,10 @@ public class BookDaoImpl implements BookDao{
 					.get(0);
 	}
 
+	@Override
+	public void saveBook(Book book) {
+		this.books.add(book);
+		
+	}
+
 }
