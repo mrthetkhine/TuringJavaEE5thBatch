@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.turingjavaee7.demo.aop.Log;
 import com.turingjavaee7.demo.model.Book;
 import com.turingjavaee7.demo.service.AuthenticationException;
 import com.turingjavaee7.demo.service.BookService;
+import com.turingjavaee7.demo.service.exception.BusinesLogicException;
 import com.turingjavaee7.demo.validation.BookValidator;
 
 import jakarta.validation.Valid;
@@ -52,6 +54,7 @@ public class BookController {
 	}
 	
 	
+
 	@GetMapping
 	String getAllBook(Model model)
 	{
@@ -136,7 +139,12 @@ public class BookController {
 	String deleteBook(Model model,@PathVariable String id)
 	{
 		log.info("Delete book" +id);
-		this.bookService.deleteBookById(id);
+		try {
+			this.bookService.deleteBookById(id);
+		} catch (BusinesLogicException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "redirect:/books";
 	}

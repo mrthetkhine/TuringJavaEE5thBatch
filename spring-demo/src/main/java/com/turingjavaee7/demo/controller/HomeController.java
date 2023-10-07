@@ -74,6 +74,13 @@ public class HomeController {
 	
 		return "home";
 	}
+	@GetMapping("/throw")
+	String throwException() throws Exception
+	{
+		
+		throw new Exception("Just throw");
+		//return "home";
+	}
 	@GetMapping("/search")
     public String search(@RequestParam Integer query) {
 		log.info("Query "+query);

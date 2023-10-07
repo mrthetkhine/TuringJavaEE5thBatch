@@ -52,11 +52,13 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	@Override
-	public void deleteBook(String id) {
+	public Book deleteBook(String id) {
+		Book deletedBook = this.getBookById(id);
 		List<Book> books = this.books.stream()
 				.filter(book->!book.getId().equals(id))
 				.collect(Collectors.toList());
-		this.books = books;		
+		this.books = books;	
+		return deletedBook;
 	}
 
 }

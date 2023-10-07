@@ -87,8 +87,8 @@ public class AppConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 	    registry.addInterceptor(localeChangeInterceptor());
-	    registry.addWebRequestInterceptor(customInterceptor()).addPathPatterns("/books/**");
-	    registry.addInterceptor(logInterceptor()).addPathPatterns("/admin/**");
+	    //registry.addWebRequestInterceptor(customInterceptor()).addPathPatterns("/books/**");
+	    //registry.addInterceptor(logInterceptor()).addPathPatterns("/admin/**");
 	}
 	
 	@Bean

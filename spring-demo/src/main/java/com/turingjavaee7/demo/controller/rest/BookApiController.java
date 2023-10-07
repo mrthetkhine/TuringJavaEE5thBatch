@@ -5,15 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turingjavaee7.demo.service.BookService;
+import com.turingjavaee7.demo.service.exception.BusinesLogicException;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -72,5 +75,38 @@ public class BookApiController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 								.body(savedBook);
 		}
+	}
+	@PutMapping("/{bookId}")
+	ResponseEntity<Object> updateBook(@PathVariable String bookId,@RequestBody @Valid Book book,
+									BindingResult result)
+	{
+		log.info("PUT updateBook id "+bookId+"  "+book);
+		if(result.hasErrors())
+		{
+			log.info("Validation error in updating book "+result);
+			return ResponseEntity.badRequest()
+							 	.body(result.getAllErrors());	
+		}
+		else
+		{
+			Book updatedBook = bookService.updateBook(book);
+			return ResponseEntity.ok()
+								.body(updatedBook);
+		}
+	}
+	@DeleteMapping("/{bookId}")
+	ResponseEntity<Object> deleteBook(@PathVariable String bookId)
+	{
+		log.info("Delete book id "+bookId+"  ");
+		Book deletedeBook;
+		try {
+			deletedeBook = bookService.deleteBookById(bookId);
+			return ResponseEntity.ok()
+					.body(deletedeBook);
+		} catch (BusinesLogicException e) {
+			return ResponseEntity.badRequest()
+				 	.body(e);
+		}
+		
 	}
 }

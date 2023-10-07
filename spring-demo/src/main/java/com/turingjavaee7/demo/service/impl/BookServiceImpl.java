@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.turingjavaee7.demo.dao.BookDao;
 import com.turingjavaee7.demo.model.Book;
 import com.turingjavaee7.demo.service.BookService;
+import com.turingjavaee7.demo.service.exception.BusinesLogicException;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -39,8 +40,16 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBookById(String id) {
-		this.bookDao.deleteBook(id);
+	public Book deleteBookById(String id)throws BusinesLogicException{
+		
+		try
+		{
+			return this.bookDao.deleteBook(id);
+		}
+		catch(Exception e)
+		{
+			throw new BusinesLogicException("Book not found");
+		}
 		
 	}
 
