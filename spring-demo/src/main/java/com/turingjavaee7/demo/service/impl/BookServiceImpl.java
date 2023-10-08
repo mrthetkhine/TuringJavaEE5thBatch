@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.turingjavaee7.demo.controller.rest.BookApiController;
 import com.turingjavaee7.demo.dao.BookDao;
 import com.turingjavaee7.demo.model.Book;
 import com.turingjavaee7.demo.service.BookService;
 import com.turingjavaee7.demo.service.exception.BusinesLogicException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -19,6 +23,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getAllBook() {
 		
+		log.info("getAllBook api service");
 		return this.bookDao.getAllBooks();
 	}
 

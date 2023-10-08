@@ -3,10 +3,13 @@ package com.turingjavaee7.demo;
 import java.util.List;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
@@ -17,6 +20,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import com.turingjavaee7.demo.interceptor.CustomInterceptor;
 import com.turingjavaee7.demo.interceptor.LogInterceptor;
@@ -24,41 +32,42 @@ import com.turingjavaee7.demo.model.ShoppingCart;
 import com.turingjavaee7.demo.model.Store;
 import com.turingjavaee7.demo.service.impl.ExampleBean;
 import com.turingjavaee7.demo.service.impl.HelloMessageGenerator;
+import com.turingjavaee7.demo.servlet.HelloWorldServlet;
 
+import jakarta.servlet.http.HttpServlet;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Configuration
-public class AppConfig implements WebMvcConfigurer{
-	
-	
+public class AppConfig implements WebMvcConfigurer {
+
 	@Bean
-	public ExampleBean exampleBean()
-	{
+	public ExampleBean exampleBean() {
 		log.info("Invoke via factory method");
 		return new ExampleBean();
 	}
-	
+
 	@Bean
 	@RequestScope
 	public HelloMessageGenerator requestScopedBean() {
 		log.info("HelloMessageBean created ");
-	    return new HelloMessageGenerator();
+		return new HelloMessageGenerator();
 	}
+
 	@Bean
 	@ApplicationScope
 	public HelloMessageGenerator appScopedBean() {
 		log.info("HelloMessageBean app scope created ");
-	    return new HelloMessageGenerator();
+		return new HelloMessageGenerator();
 	}
-	
+
 	@Bean
 	@SessionScope
-	public ShoppingCart shoppingCart()
-	{
+	public ShoppingCart shoppingCart() {
 		log.info("Shopping cart created ");
 		return new ShoppingCart();
 	}
-	
+
 	@Bean
 	public Store<String> stringStore() {
 		return new Store<String>();
@@ -69,45 +78,58 @@ public class AppConfig implements WebMvcConfigurer{
 		log.info("Integer store created");
 		return new Store<Integer>();
 	}
+
 	@Bean
 	public LocaleResolver localeResolver() {
-	    SessionLocaleResolver slr = new SessionLocaleResolver();
-	    slr.setDefaultLocale(Locale.US);
-	    return slr;
+		SessionLocaleResolver slr = new SessionLocaleResolver();
+		slr.setDefaultLocale(Locale.US);
+		return slr;
 	}
+
 	@Bean
 	public MessageSource messageSource() {
-	    ReloadableResourceBundleMessageSource messageSource
-	      = new ReloadableResourceBundleMessageSource();
-	    
-	    messageSource.setBasename("classpath:messages");
-	    messageSource.setDefaultEncoding("UTF-8");
-	    return messageSource;
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
 	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-	    registry.addInterceptor(localeChangeInterceptor());
-	    //registry.addWebRequestInterceptor(customInterceptor()).addPathPatterns("/books/**");
-	    //registry.addInterceptor(logInterceptor()).addPathPatterns("/admin/**");
+		registry.addInterceptor(localeChangeInterceptor());
+		// registry.addWebRequestInterceptor(customInterceptor()).addPathPatterns("/books/**");
+		// registry.addInterceptor(logInterceptor()).addPathPatterns("/admin/**");
 	}
-	
+
 	@Bean
 	public HandlerInterceptor localeChangeInterceptor() {
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor(); 
+		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
 		localeChangeInterceptor.setParamName("lang");
-		
+
 		return localeChangeInterceptor;
 	}
+
 	@Bean
-	public WebRequestInterceptor customInterceptor()
-	{
+	public WebRequestInterceptor customInterceptor() {
 		CustomInterceptor interceptor = new CustomInterceptor();
 		return interceptor;
-				
+
 	}
+
 	@Bean
-	public HandlerInterceptor logInterceptor()
-	{
+	public HandlerInterceptor logInterceptor() {
 		return new LogInterceptor();
 	}
+
+	@Bean
+	public ServletRegistrationBean<HttpServlet> helloServlet() {
+		ServletRegistrationBean<HttpServlet> servRegBean = new ServletRegistrationBean<>();
+		servRegBean.setServlet(new HelloWorldServlet());
+		servRegBean.addUrlMappings("/hello/*");
+		servRegBean.setLoadOnStartup(1);
+		return servRegBean;
+	}
+	
+
 }
