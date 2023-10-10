@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+	<header th:insert="fragments/header.html"> </header>
+ <body>
+
+    <h1>View Index</h1>
+    <div>
+    	Variable from controller
+    	  <p th:text="${message}+' world'">placeholder message</p>
+    	  <p th:text="|The message is ${message}|">placeholder message</p>
+    	  
+    	  1+2<p th:text="${message.toUpperCase()}">placeholder message</p>
+    	  
+    </div>
+    <ol>
+    	<li th:each="city : ${cities}">
+    		<span th:text="${city}"/>
+    	</li>
+    </ol>
+  	Message 
+    <p th:text="#{view.greeting}">placeholder message</p>
+    Link
+	<img th:src="@{/images/apple.jpeg}"/>
+
+  </body>
+</html>

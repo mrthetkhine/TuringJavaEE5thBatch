@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      >
+	<header th:insert="fragments/header.html"> </header>
+ <body>
+
+   
+	<h3>Conditional</h3>
+	<p th:text="${gender} eq 'm' ? 'Male':'Female' ">placeholder message</p>
+	
+	 <span th:if="${gender == 'F'}">Female</span>
+     <span th:unless="${gender == 'F'}">Male</span>
+     
+     <div th:switch="${cities.size}">
+	    <span th:case="'0'">No Cities</span>
+	    <span th:case="'1'" th:text="${cities.length}"></span>
+	    <div th:case="*">
+	    	* case
+	        <div th:each="city:${cities}" th:text="${city}"/>
+	    </div>
+	</div>
+
+	<footer th:insert="fragments/footer.html"> </footer>
+  </body>
+</html>
