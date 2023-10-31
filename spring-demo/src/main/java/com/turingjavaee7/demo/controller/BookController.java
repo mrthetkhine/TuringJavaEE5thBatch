@@ -69,7 +69,7 @@ public class BookController {
 	
 	@GetMapping("/{id}")
 	String getBookById(Model model,
-			@PathVariable String id,
+			@PathVariable Long id,
 			@ModelAttribute("category") List<String> category)
 	{
 		//List<Book> modelBooks = (ArrayList<Book>)model.getAttribute("books");
@@ -109,7 +109,7 @@ public class BookController {
 		
 	}
 	@GetMapping("/edit/{id}")
-	String bookEditForm(Model model,@PathVariable String id)
+	String bookEditForm(Model model,@PathVariable Long id)
 	{
 		log.info("Edit book" +id);
 		Book book  = this.bookService.getBookById(id);
@@ -136,7 +136,7 @@ public class BookController {
 	
 	}
 	@GetMapping("/delete/{id}")
-	String deleteBook(Model model,@PathVariable String id)
+	String deleteBook(Model model,@PathVariable Long id)
 	{
 		log.info("Delete book" +id);
 		try {

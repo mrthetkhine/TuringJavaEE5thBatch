@@ -2,6 +2,8 @@ package com.turingjavaee7.demo.model;
 
 
 
+import java.io.Serializable;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,10 +13,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+public class Book implements Serializable{
 
-	@NotBlank(message = "{required.book.id}")
-	String id;
+	private static final long serialVersionUID = 1L;
+	
+	//@NotBlank(message = "{required.book.id}")
+	Long id;
 	
 	@NotBlank(message = "{required.book.title}")
 	@Size(min = 3, max = 100, message 

@@ -5,8 +5,8 @@ import java.util.List;
 import com.turingjavaee7.demo.model.*;
 public interface BookDao {
 	List<Book> getAllBooks();
-	Book getBookById(String id);
+	Book getBookById(Long id);
 	Book saveBook(Book book);
 	Book updateBook(Book book);
-	Book deleteBook(String id);
+	Book deleteBook(Long id);
 }

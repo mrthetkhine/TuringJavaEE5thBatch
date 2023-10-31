@@ -6,8 +6,8 @@ import com.turingjavaee7.demo.service.exception.BusinesLogicException;
 
 public interface BookService {
 	List<Book> getAllBook();
-	Book getBookById(String id);
+	Book getBookById(Long id);
 	Book saveBook(Book book);
 	Book updateBook(Book book);
-	Book deleteBookById(String id)throws BusinesLogicException;
+	Book deleteBookById(Long id)throws BusinesLogicException;
 }
