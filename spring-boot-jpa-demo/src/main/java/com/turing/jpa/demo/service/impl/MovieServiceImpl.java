@@ -12,7 +12,7 @@ import com.turing.jpa.demo.dao.MovieRepository;
 import com.turing.jpa.demo.model.dto.MovieDto;
 import com.turing.jpa.demo.model.entity.Movie;
 import com.turing.jpa.demo.service.MovieService;
-import com.turingjavaee7.demo.controller.rest.PostApiController;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +27,11 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public List<MovieDto> getAllMovie() {
-		List<MovieDto> moviesDto = new ArrayList<MovieDto>();
 		List<Movie> movies = this.movieRepository.findAll();
+		return movieListToMovieDto(movies);
+	}
+	private List<MovieDto> movieListToMovieDto(List<Movie> movies) {
+		List<MovieDto> moviesDto = new ArrayList<MovieDto>();
 		
 		for(Movie movie: movies)
 		{
@@ -37,6 +40,17 @@ public class MovieServiceImpl implements MovieService{
 		}
 		
 		return moviesDto;
+	}
+	@Override
+	public List<MovieDto> getAllMovieByYear(Integer year) {
+		
+		List<Movie> movies = this.movieRepository.findByYear(year);
+		return movieListToMovieDto(movies);
+	}
+	@Override
+	public List<MovieDto> getAllMovieTitle(String title) {
+		List<Movie> movies = this.movieRepository.findByTitle(title);
+		return movieListToMovieDto(movies);
 	}
 
 	@Override
@@ -77,5 +91,7 @@ public class MovieServiceImpl implements MovieService{
 	public void deleteById(Long id) {
 		this.movieRepository.deleteById(id);		
 	}
+	
+
 	
 }
