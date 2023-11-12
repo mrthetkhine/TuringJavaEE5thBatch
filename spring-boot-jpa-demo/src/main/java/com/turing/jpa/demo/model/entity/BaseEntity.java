@@ -12,8 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 @MappedSuperclass
 public class BaseEntity implements Serializable{
 	private static final long serialVersionUID = 1L;

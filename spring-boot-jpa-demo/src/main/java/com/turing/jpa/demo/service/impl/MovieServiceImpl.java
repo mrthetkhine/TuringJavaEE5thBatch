@@ -52,7 +52,27 @@ public class MovieServiceImpl implements MovieService{
 		List<Movie> movies = this.movieRepository.findByTitle(title);
 		return movieListToMovieDto(movies);
 	}
-
+	@Override
+	public List<MovieDto> getAllMovieByGenreAndYear(String genre,Integer year) {
+		List<Movie> movies = this.movieRepository.findByGenreAndYear(genre, year);
+		return movieListToMovieDto(movies);
+	}
+	@Override
+	public List<MovieDto> getAllMovieByGenreOrYear(String genre,Integer year) {
+		List<Movie> movies = this.movieRepository.findByGenreOrYear(genre, year);
+		return movieListToMovieDto(movies);
+	}
+	@Override
+	public List<MovieDto> getAllMovieByYearBetween(Integer startYear,Integer endYear) {
+		List<Movie> movies = this.movieRepository.findByYearBetween(startYear, endYear);
+		return movieListToMovieDto(movies);
+	}
+	@Override
+	public List<MovieDto> getAllGeneres(String genere) {
+		List<Movie> movies = this.movieRepository.findDistinctByGenre(genere);
+		return movieListToMovieDto(movies);
+	}
+	
 	@Override
 	public Optional<MovieDto> getMovieById(Long id) {
 		Optional<Movie> result = this.movieRepository.findById(id);
