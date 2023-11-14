@@ -9,9 +9,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
@@ -21,27 +18,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-public class TestMoviePagination {
+public class TestUpdateMovie {
 
 	@Autowired
 	MovieRepository movieRepository;
 	
-	
-	@Test
-	public void testPagination()
+	int add(int a, int b)
 	{
-		log.info("Test case testPagination");
-	
-		Sort.TypedSort<Movie> sort = Sort.sort(Movie.class);
-		
+		return a+b;
+	}
+	@Test
+	public void testUpdateMovie()
+	{
+		log.info("Test case testUpdateMovie");
 		/*
-		Page<Movie> pages = this.movieRepository.findAll(PageRequest.of(1, 5),
-						);
-		pages.forEach(movie->{
-			System.err.println(movie);
-		});
+		int row = this.movieRepository.updateYearByMovieId(10L, 2010);
 		*/
-		List<Movie> movies = this.movieRepository.findAll(sort.by(Movie::getYear).descending());
-		movies.forEach(movie->System.err.println(movie));
+		int row = this.movieRepository.deleteMovieById(10L);
+		System.out.println("Row "+row);
 	}
 }
