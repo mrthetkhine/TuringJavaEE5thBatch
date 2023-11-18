@@ -1,4 +1,4 @@
-package com.turing.jpa.demo.repository;
+package com.turing.jpa.demo.repository.actor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,33 +13,28 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
+import com.turing.jpa.demo.dao.ActorRepository;
 import com.turing.jpa.demo.dao.MovieRepository;
 import com.turing.jpa.demo.model.dto.GenreCountDto;
 import com.turing.jpa.demo.model.dto.GenreCountDtoTwo;
+import com.turing.jpa.demo.model.entity.Actor;
 import com.turing.jpa.demo.model.entity.Movie;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-public class TestMovieQBE {
+public class TestActorFormula {
 
 	@Autowired
-	MovieRepository movieRepository;
+	ActorRepository actorRepository;
 	
 	
 	@Test
-	public void testMovieQBE()
+	public void testFormula()
 	{
-		log.info("Test case testMovieQBE");
-		Movie movie = new Movie();
-		movie.setYear(2010);
-		
-		ExampleMatcher matcher = ExampleMatcher.matching();
-		Example<Movie> example = Example.of(movie, matcher);
-		
-		List<Movie> movies = this.movieRepository.findAll(example);
-		
-		movies.forEach(System.err::println);
+		//List<Actor> actors = this.actorRepository.findAll();
+		List<Actor> actors = this.actorRepository.findByAgeGreaterThan(40);
+		actors.forEach(System.err::println);
 	}
 }

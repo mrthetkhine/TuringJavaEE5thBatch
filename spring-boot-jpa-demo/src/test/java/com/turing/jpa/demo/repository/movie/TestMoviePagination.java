@@ -1,4 +1,4 @@
-package com.turing.jpa.demo.repository;
+package com.turing.jpa.demo.repository.movie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

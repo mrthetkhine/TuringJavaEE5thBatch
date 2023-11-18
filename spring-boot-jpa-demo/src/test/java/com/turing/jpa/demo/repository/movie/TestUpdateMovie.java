@@ -1,4 +1,4 @@
-package com.turing.jpa.demo.repository;
+package com.turing.jpa.demo.repository.movie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,7 +34,11 @@ public class TestUpdateMovie {
 		/*
 		int row = this.movieRepository.updateYearByMovieId(10L, 2010);
 		*/
-		int row = this.movieRepository.deleteMovieById(10L);
-		System.out.println("Row "+row);
+		//int row = this.movieRepository.deleteMovieById(10L);
+		//System.out.println("Row "+row);
+		
+		Movie movie = new Movie();
+		movie.setTitle("Testing 2");
+		this.movieRepository.save(movie);
 	}
 }
