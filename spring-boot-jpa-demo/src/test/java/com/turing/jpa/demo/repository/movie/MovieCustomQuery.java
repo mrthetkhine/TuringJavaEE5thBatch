@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +34,20 @@ public class MovieCustomQuery {
 	public void testCustomQuery()
 	{
 		log.info("Test case testCustomQuery");
-		List<String> genres = this.movieRepository.getAllGeneres();
-		genres.forEach(genre->System.err.println(genre));
+		//List<Movie> movies = this.movieRepository.findAllMovie();
+		Optional<Movie> result = this.movieRepository.findById(1L);
+		Movie movie = result.get();
+		System.out.println("Movie "+movie.getTitle());
+		//movies.forEach(movie->System.err.println(movie));
+		//List<String> genres = this.movieRepository.getAllGeneres();
+		//genres.forEach(genre->System.err.println(genre));
 		
 		/*
 		
 		int totalDrama = this.movieRepository.findTotalMovieByGenres("Action");
 		System.err.println("Total no of drama "+totalDrama);
 		
-		List<Movie> movies = this.movieRepository.findAllMovie();
-		movies.forEach(movie->System.err.println(movie));
+		
 		*/
 		//List<GenreCountDto> genres = this.movieRepository.getAllGeneresCount();
 		/*

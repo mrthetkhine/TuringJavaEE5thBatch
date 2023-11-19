@@ -7,30 +7,20 @@ import org.hibernate.annotations.Formula;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString//(callSuper=true)
+@ToString(callSuper=true)
 @Entity
-public class Actor extends BaseEntity{
+public class Actor extends Human{
 	private static final long serialVersionUID = 1L;
-
-	@Column
-	//@ColumnTransformer(read="UPPER(first_name)")
-	private String firstName;
 	
 	@Column
-	private String lastName;
-	
-	@Formula(value = "CONCAT(first_name,\" \",last_name)")
-	private String fullName;
-	
-	@Column
-	private String gender;
-	
-	@Column
-	private Date birthday;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 	
 	@Formula(value="DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), birthday)), '%Y') + 0")
 	Integer age;

@@ -33,11 +33,11 @@ public class TestMovieQBE {
 	{
 		log.info("Test case testMovieQBE");
 		Movie movie = new Movie();
-		movie.setYear(2010);
-		movie.setGenre("drama");
+		//movie.setYear(2010);
+		movie.setGenre("Sci-Fi");
 		
-		ExampleMatcher matcher = ExampleMatcher.matching()
-									.withIgnorePaths("genre");
+		ExampleMatcher matcher = ExampleMatcher.matching();
+									//.withIgnorePaths("genre");
 		Example<Movie> example = Example.of(movie, matcher);
 		
 		List<Movie> movies = this.movieRepository.findAll(example);

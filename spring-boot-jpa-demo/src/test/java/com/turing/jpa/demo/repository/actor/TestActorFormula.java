@@ -34,7 +34,8 @@ public class TestActorFormula {
 	public void testFormula()
 	{
 		//List<Actor> actors = this.actorRepository.findAll();
-		List<Actor> actors = this.actorRepository.findByAgeGreaterThan(40);
+		//List<Actor> actors = this.actorRepository.findByAgeGreaterThan(40);
+		List<Actor> actors = this.actorRepository.findByFirstName("Leonardo");
 		actors.forEach(System.err::println);
 	}
 }

@@ -9,4 +9,5 @@ import com.turing.jpa.demo.model.entity.Movie;
 
 public interface ActorRepository extends JpaRepository<Actor, Long>{
 	List<Actor> findByAgeGreaterThan(Integer age);
+	List<Actor> findByFirstName(String firstName);
 }

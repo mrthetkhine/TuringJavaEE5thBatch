@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
 import com.turing.jpa.demo.model.entity.Movie;
+import com.turing.jpa.demo.model.entity.MovieDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,11 +36,21 @@ public class TestUpdateMovie {
 		/*
 		int row = this.movieRepository.updateYearByMovieId(10L, 2010);
 		*/
-		//int row = this.movieRepository.deleteMovieById(10L);
+		Movie movie = this.movieRepository.getById(11L);
+		this.movieRepository.delete(movie);
 		//System.out.println("Row "+row);
 		
+		/*
 		Movie movie = new Movie();
-		movie.setTitle("Testing 2");
+		movie.setTitle("Testing 4");
+		
+		MovieDetails movieDetails = new MovieDetails();
+		movieDetails.setDetails("Movie Testing 4 Details");
+		
+		movie.setMovieDetails(movieDetails);
+		movieDetails.setMovie(movie);
+		
 		this.movieRepository.save(movie);
+		*/
 	}
 }
