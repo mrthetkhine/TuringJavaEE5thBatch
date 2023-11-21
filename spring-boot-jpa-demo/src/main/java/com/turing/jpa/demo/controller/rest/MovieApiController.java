@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turing.jpa.demo.model.dto.*;
+import com.turing.jpa.demo.model.entity.Movie;
 import com.turing.jpa.demo.service.MovieService;
 
 
 import jakarta.validation.Valid;
 
 import  com.turing.jpa.demo.controller.rest.error.ApiErrorResponse;
+import com.turing.jpa.demo.dao.MovieRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +36,9 @@ public class MovieApiController {
 
 	@Autowired
 	MovieService movieService;
+	
+	@Autowired
+	MovieRepository movieRepository;
 	
 	@GetMapping
 	List<MovieDto> getAllMovies()
@@ -84,7 +89,8 @@ public class MovieApiController {
 	{
 		log.info("GET /api/movies/"+movieId);
 		
-		Optional<MovieDto> result = this.movieService.getMovieById(movieId);
+		//Optional<MovieDto> result = this.movieService.getMovieById(movieId);
+		Optional<Movie> result = this.movieRepository.findById(movieId);
 		if(result.isPresent())
 		{
 			return ResponseEntity.ok(result.get());

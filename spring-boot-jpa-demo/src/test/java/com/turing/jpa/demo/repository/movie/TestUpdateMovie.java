@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
@@ -29,6 +30,7 @@ public class TestUpdateMovie {
 	{
 		return a+b;
 	}
+	@Transactional
 	@Test
 	public void testUpdateMovie()
 	{
@@ -36,8 +38,17 @@ public class TestUpdateMovie {
 		/*
 		int row = this.movieRepository.updateYearByMovieId(10L, 2010);
 		*/
-		Movie movie = this.movieRepository.getById(11L);
-		this.movieRepository.delete(movie);
+		try
+		{
+			Movie movie = this.movieRepository.getById(1L);
+			System.out.println("Movie "+movie.getTitle());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		//this.movieRepository.delete(movie);
 		//System.out.println("Row "+row);
 		
 		/*

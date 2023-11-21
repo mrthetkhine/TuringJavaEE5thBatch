@@ -1,5 +1,8 @@
 package com.turing.jpa.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +20,7 @@ public class MovieDetails extends BaseEntity {
 	@Column
 	private String details;
 
+	@JsonIgnore
 	@ToString.Exclude
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "movie_id")

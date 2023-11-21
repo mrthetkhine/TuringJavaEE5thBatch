@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.turing.jpa.demo.dao.MovieRepository;
+import com.turing.jpa.demo.model.dto.MovieDetailsDto;
 import com.turing.jpa.demo.model.dto.MovieDto;
 import com.turing.jpa.demo.model.entity.Movie;
+import com.turing.jpa.demo.model.entity.MovieDetails;
 import com.turing.jpa.demo.service.MovieService;
 
 
@@ -27,7 +29,9 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public List<MovieDto> getAllMovie() {
-		List<Movie> movies = this.movieRepository.findAll();
+		//List<Movie> movies = this.movieRepository.findAll();
+		//List<Movie> movies = this.movieRepository.findAllMovie();
+		List<Movie> movies = this.movieRepository.findAllMovieWithoutNPlusOne();
 		return movieListToMovieDto(movies);
 	}
 	private List<MovieDto> movieListToMovieDto(List<Movie> movies) {
@@ -36,7 +40,14 @@ public class MovieServiceImpl implements MovieService{
 		for(Movie movie: movies)
 		{
 			MovieDto movieDto = modelMapper.map(movie, MovieDto.class);
+			if(movie.getMovieDetails()!=null)
+			{
+				MovieDetailsDto movieDetailsDto = modelMapper.map(movie.getMovieDetails(), MovieDetailsDto.class);	
+				movieDto.setMovieDetails(movieDetailsDto);
+			}
+			
 			moviesDto.add(movieDto);
+			
 		}
 		
 		return moviesDto;
@@ -93,6 +104,11 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public MovieDto saveMovie(MovieDto movieDto) {
 		Movie movie = modelMapper.map(movieDto, Movie.class);
+		MovieDetails movieDetails = modelMapper.map(movieDto.getMovieDetails(),MovieDetails.class);
+		
+		movie.setMovieDetails(movieDetails);
+		movieDetails.setMovie(movie);
+		
 		movie = this.movieRepository.save(movie);
 		
 		movieDto = modelMapper.map(movie, MovieDto.class);
@@ -101,6 +117,11 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public MovieDto updateMovie(MovieDto movieDto) {
 		Movie movie = modelMapper.map(movieDto, Movie.class);
+		MovieDetails movieDetails = modelMapper.map(movieDto.getMovieDetails(),MovieDetails.class);
+		
+		movie.setMovieDetails(movieDetails);
+		movieDetails.setMovie(movie);
+		
 		movie = this.movieRepository.save(movie);
 		
 		movieDto = modelMapper.map(movie, MovieDto.class);
@@ -110,6 +131,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void deleteById(Long id) {
 		this.movieRepository.deleteById(id);		
+		//this.movieRepository.deleteMovieById(id);
 	}
 	
 

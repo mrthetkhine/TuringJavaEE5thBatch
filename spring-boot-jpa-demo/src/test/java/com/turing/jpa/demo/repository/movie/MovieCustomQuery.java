@@ -10,11 +10,13 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
 import com.turing.jpa.demo.model.dto.GenreCountDto;
 import com.turing.jpa.demo.model.dto.GenreCountDtoTwo;
+import com.turing.jpa.demo.model.entity.Comment;
 import com.turing.jpa.demo.model.entity.Movie;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +33,27 @@ public class MovieCustomQuery {
 		return a+b;
 	}
 	@Test
+	@Transactional
 	public void testCustomQuery()
 	{
 		log.info("Test case testCustomQuery");
-		//List<Movie> movies = this.movieRepository.findAllMovie();
-		Optional<Movie> result = this.movieRepository.findById(1L);
-		Movie movie = result.get();
-		System.out.println("Movie "+movie.getTitle());
+		
+		try
+		{
+			//List<Movie> movies = this.movieRepository.findAllMovie();
+			Optional<Movie> result = this.movieRepository.findById(1L);
+			Movie movie = result.get();
+			System.out.println("Movie title"+movie.getTitle());
+			System.out.println("Comments ");
+			List<Comment> comments = movie.getComments();
+			
+			comments.forEach(System.err::println);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		//movies.forEach(movie->System.err.println(movie));
 		//List<String> genres = this.movieRepository.getAllGeneres();
 		//genres.forEach(genre->System.err.println(genre));

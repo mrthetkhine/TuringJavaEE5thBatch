@@ -36,6 +36,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long>{
 	@Query(value="SELECT * FROM movie;",nativeQuery=true)
 	List<Movie> findAllMovie();
 	
+	@Query(value="from Movie m join fetch m.movieDetails movieDetails")
+	List<Movie> findAllMovieWithoutNPlusOne();
+	
 	@Query("SELECT distinct(m.genre) FROM Movie m")
 	List<String> getAllGeneres();
 	
@@ -57,4 +60,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long>{
 	@Transactional
 	@Query("DELETE FROM Movie m WHERE m.id = ?1")
 	int deleteMovieById(Long movieId);
+	
+	@Modifying
+	@Transactional
+	@Query(value="DELETE FROM Movie m WHERE m.id = ?1",nativeQuery=true)
+	int deleteMovieByIdTwo(Long movieId);
 }

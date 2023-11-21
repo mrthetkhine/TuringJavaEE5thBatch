@@ -26,4 +26,6 @@ public class MovieDto {
 	Date createdAt;
 
 	Date updatedAt;
+	
+	MovieDetailsDto movieDetails;
 }
