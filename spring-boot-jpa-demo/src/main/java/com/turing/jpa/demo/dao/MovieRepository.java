@@ -65,4 +65,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long>{
 	@Transactional
 	@Query(value="DELETE FROM Movie m WHERE m.id = ?1",nativeQuery=true)
 	int deleteMovieByIdTwo(Long movieId);
+	
+	//@Query(value="from Movie m JOIN m.comments comments JOIN m.actors actors")
+	@Query(value="FROM Movie m")
+	List<Movie> findAllMovieJPQL();
 }

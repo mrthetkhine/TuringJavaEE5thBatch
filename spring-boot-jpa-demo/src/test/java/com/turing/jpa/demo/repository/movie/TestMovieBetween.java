@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
@@ -28,6 +29,7 @@ public class TestMovieBetween {
 		return a+b;
 	}
 	@Test
+	@Transactional
 	public void testBetween()
 	{
 		log.info("Test case testBetween");
@@ -46,7 +48,11 @@ public class TestMovieBetween {
 			System.err.println(movie.toString());
 		}
 		*/
+		/*
 		Movie movie = this.movieRepository.findTopByOrderByYearDesc();
 		System.err.println(movie);
+		*/
+		List<Movie> movies = this.movieRepository.findAllMovieJPQL();
+		movies.forEach(System.err::println);
 	}
 }

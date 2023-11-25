@@ -37,10 +37,10 @@ public class MovieCustomQuery {
 	public void testCustomQuery()
 	{
 		log.info("Test case testCustomQuery");
-		
+		/*
 		try
 		{
-			//List<Movie> movies = this.movieRepository.findAllMovie();
+			//
 			Optional<Movie> result = this.movieRepository.findById(1L);
 			Movie movie = result.get();
 			System.out.println("Movie title"+movie.getTitle());
@@ -53,8 +53,9 @@ public class MovieCustomQuery {
 		{
 			e.printStackTrace();
 		}
-		
-		//movies.forEach(movie->System.err.println(movie));
+		*/
+		List<Movie> movies = this.movieRepository.findAllMovie();
+		movies.forEach(movie->System.err.println(movie));
 		//List<String> genres = this.movieRepository.getAllGeneres();
 		//genres.forEach(genre->System.err.println(genre));
 		
