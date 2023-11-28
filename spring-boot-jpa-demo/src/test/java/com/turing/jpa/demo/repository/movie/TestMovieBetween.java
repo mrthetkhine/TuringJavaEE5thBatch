@@ -9,16 +9,19 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
+import com.turing.jpa.demo.model.dto.GenreCountDtoTwo;
 import com.turing.jpa.demo.model.entity.Movie;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
+@Rollback(false)
 public class TestMovieBetween {
 
 	@Autowired
@@ -52,7 +55,25 @@ public class TestMovieBetween {
 		Movie movie = this.movieRepository.findTopByOrderByYearDesc();
 		System.err.println(movie);
 		*/
+		/*
 		List<Movie> movies = this.movieRepository.findAllMovieJPQL();
+		System.err.println("Movie size "+movies.size());
+		movies.forEach(movie->{
+			System.err.println(movie.getTitle() + "comment "+movie.getComments().size());
+		});
+		*/
+		
+		/*
+		List<String> titles = this.movieRepository.getAllMovieName();
+		titles.forEach(System.err::println);
+		*/
+		//List<Movie> movies = this.movieRepository.getMovieWhereActorIn("%Leonardo%");
+		
+		/*
+		List<Movie> movies = this.movieRepository.getMovieWithMoreThanTwoActor();
 		movies.forEach(System.err::println);
+		*/
+		List<GenreCountDtoTwo> genres =  this.movieRepository.getGenreWithMoreThreeMovie();
+		genres.forEach(System.err::println);
 	}
 }
