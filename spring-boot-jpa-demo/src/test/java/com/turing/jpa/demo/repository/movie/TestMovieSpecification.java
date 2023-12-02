@@ -9,14 +9,15 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.turing.jpa.demo.controller.rest.MovieApiController;
 import com.turing.jpa.demo.dao.MovieRepository;
-import com.turing.jpa.demo.dao.MovieSpecification;
 import com.turing.jpa.demo.model.dto.GenreCountDtoTwo;
 import com.turing.jpa.demo.model.entity.Movie;
+import com.turing.jpa.demo.service.MovieSpecification;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +37,19 @@ public class TestMovieSpecification {
 	@Transactional
 	public void testBetween()
 	{
-		List<Movie> movies = this.movieRepository.findAll(MovieSpecification.getMovieByYear(2019L));
+		//List<Movie> movies = this.movieRepository.findAll(MovieSpecification.getMovieByYear(2019L));
+		//Specification<Movie> spec = MovieSpecification.getMovieByGenereOrYear("Drama",2023L);
+		//Specification<Movie> spec = MovieSpecification.getMovieByTitle("Jhon Wick");
+		
+		//Specification<Movie> spec = MovieSpecification.getMovieNotGenere("Drama");
+		
+		List<String> genres = new ArrayList<>();
+		genres.add("Drama");
+		genres.add("Sci-Fi");
+		//Specification<Movie> spec = MovieSpecification.getMovieInGenere(genres);
+		//Specification<Movie> spec = MovieSpecification.getMovieWhereActorIn("Leonardo DiCaprio");
+		Specification<Movie> spec = MovieSpecification.getMovieGroupByGenere("Sci-Fi");
+		List<Movie> movies = this.movieRepository.findAll(spec);
 		movies.forEach(System.err::println);
 	}
 }
