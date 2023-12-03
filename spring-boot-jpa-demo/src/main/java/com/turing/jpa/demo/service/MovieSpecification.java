@@ -7,7 +7,7 @@ import org.hibernate.persister.collection.mutation.RowMutationOperations.Restric
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.turing.jpa.demo.model.*;
+
 import com.turing.jpa.demo.model.entity.Movie;
 import com.turing.jpa.demo.model.entity.Actor;
 import jakarta.persistence.criteria.CriteriaBuilder;
