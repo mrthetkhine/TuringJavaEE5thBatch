@@ -18,11 +18,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString(callSuper=true)
 @Entity
+@EqualsAndHashCode(callSuper=true)
 public class Actor extends Human{
 	private static final long serialVersionUID = 1L;
 	

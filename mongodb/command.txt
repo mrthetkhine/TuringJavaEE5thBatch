@@ -1,0 +1,68 @@
+use mongo_test;
+
+db.test.insertOne({
+    "title":"Movie 1",
+    "year":2007
+});
+
+db.test.insertOne({
+    "ttle":"Movie 3",
+    year:2010
+});
+
+db.test.insertOne({
+    "title":"Movie 4",
+    year:2010,
+    director:{
+        firstName : "James",
+        lastName : "Cameron"
+    }
+});
+db.test.insertOne({
+    "title":"Movie 5",
+    year:2010,
+    director:{
+        firstName : "James",
+        lastName : "Cameron"
+    },
+    actors: [
+        {
+        firstName : "Leonardo",
+        lastName : "Decarpio"
+        }
+    ]
+});
+
+db.test.insertMany([{
+    "title":"Movie 6",
+    year:2009,
+    director:{
+        firstName : "James",
+        lastName : "Cameron"
+    },
+    actors: [
+        {
+        firstName : "Leonardo",
+        lastName : "Decarpio"
+        }
+    ]
+},
+{
+    "title":"Movie 7",
+    year:2009,
+    director:{
+        firstName : "James",
+        lastName : "Cameron"
+    },
+    actors: [
+        {
+        firstName : "Leonardo",
+        lastName : "Decarpio"
+        }
+    ]
+}
+]);
+//Query
+db.test.find({})
+
+db.test.find({"year":2009})

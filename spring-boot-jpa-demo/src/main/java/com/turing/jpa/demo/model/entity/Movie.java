@@ -27,11 +27,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString//(callSuper=true)
 @Entity
+@EqualsAndHashCode(callSuper=true)
 public class Movie extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;

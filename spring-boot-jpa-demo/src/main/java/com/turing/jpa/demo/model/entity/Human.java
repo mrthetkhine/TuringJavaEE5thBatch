@@ -8,11 +8,13 @@ import org.hibernate.annotations.Formula;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString
 @MappedSuperclass
+@EqualsAndHashCode(callSuper=true)
 public class Human extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

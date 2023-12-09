@@ -15,7 +15,8 @@ import com.turing.jpa.demo.model.entity.Movie;
 import com.turing.jpa.demo.model.entity.MovieDetails;
 import com.turing.jpa.demo.service.MovieService;
 
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

@@ -9,11 +9,13 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString//(callSuper=true)
 @Entity
+@EqualsAndHashCode(callSuper=true)
 public class MovieDetails extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 

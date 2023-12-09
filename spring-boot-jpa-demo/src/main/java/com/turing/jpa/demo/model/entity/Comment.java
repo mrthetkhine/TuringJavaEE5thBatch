@@ -9,12 +9,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Data
 @Slf4j
+@EqualsAndHashCode(callSuper=true)
 public class Comment extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
