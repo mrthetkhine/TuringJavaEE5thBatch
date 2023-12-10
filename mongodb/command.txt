@@ -66,3 +66,218 @@ db.test.insertMany([{
 db.test.find({})
 
 db.test.find({"year":2009})
+
+db.test.find({"year":2010,"genre":"Sci-Fi"})
+
+db.test.find({
+    year: {
+        $in:[2009,2010]
+    }
+})
+db.test.find({
+    $or:[
+        {
+            "year":2010
+        },
+        {
+            "genre":"Sci-Fi"
+        }
+    ]
+})
+db.test.find({
+    title:/^Movie/
+})
+
+db.test.find({
+    year: {
+        $gte:2009
+    }
+})
+db.test.find({
+    "director.lastName":"Bond"
+})
+db.test.find({
+    "director":{
+        lastName:"Bond"
+    }
+})
+
+db.inventory.insertMany([
+  {
+    item: 'journal',
+    qty: 25,
+    tags: ['blank', 'red'],
+    dim_cm: [14, 21]
+  },
+  {
+    item: 'notebook',
+    qty: 50,
+    tags: ['red', 'blank'],
+    dim_cm: [14, 21]
+  },
+  {
+    item: 'paper',
+    qty: 100,
+    tags: ['red', 'blank', 'plain'],
+    dim_cm: [14, 21]
+  },
+  {
+    item: 'planner',
+    qty: 75,
+    tags: ['blank', 'red'],
+    dim_cm: [22.85, 30]
+  },
+  {
+    item: 'postcard',
+    qty: 45,
+    tags: ['blue'],
+    dim_cm: [10, 15.25]
+  }
+]);
+db.inventory.find({
+    tags:['blank', 'red']
+})
+db.inventory.find({
+    tags: { $all: ['red', 'blank'] }
+})
+
+db.inventory.find({
+    tags: "red"
+})
+db.inventory.find({
+    dim_cm: { $gt: 25 }
+})
+db.inventory.find({
+    dim_cm: { $gt: 15, $lt: 20 }
+})
+
+db.inventory.find({
+    dim_cm: { $elemMatch: { $gt: 22, $lt: 30 } }
+})
+
+db.inventory.find({
+    'dim_cm.1': { $gt: 25 }
+})
+
+db.inventory.find({
+    tags: { $size: 3 }
+})
+
+db.inventory.insertMany([
+  {
+    item: 'journal',
+    instock: [
+      { warehouse: 'A', qty: 5 },
+      { warehouse: 'C', qty: 15 }
+    ]
+  },
+  {
+    item: 'notebook',
+    instock: [{ warehouse: 'C', qty: 5 }]
+  },
+  {
+    item: 'paper',
+    instock: [
+      { warehouse: 'A', qty: 60 },
+      { warehouse: 'B', qty: 15 }
+    ]
+  },
+  {
+    item: 'planner',
+    instock: [
+      { warehouse: 'A', qty: 40 },
+      { warehouse: 'B', qty: 5 }
+    ]
+  },
+  {
+    item: 'postcard',
+    instock: [
+      { warehouse: 'B', qty: 15 },
+      { warehouse: 'C', qty: 35 }
+    ]
+  }
+]);
+//exact match
+db.inventory.find({
+    instock: { warehouse: 'A', qty: 5 }
+})
+
+db.inventory.find({
+    instock: {  qty: 5,warehouse: 'A' }
+})
+
+db.inventory.find({
+    'instock.qty': { $lte: 20 }
+})
+db.inventory.find({
+    'instock.0.qty': { $lte: 20 }
+})
+//elementMatch
+db.inventory.find({
+     instock: { $elemMatch: { qty: 5, warehouse: 'A' } }
+})
+
+db.inventory.find({
+    instock: { $elemMatch: { qty: { $gt: 10, $lte: 20 } } }
+})
+
+db.inventory.find({
+    'instock.qty': { $gt: 10, $lte: 20 }
+})
+
+db.inventory.find({
+    'instock.qty': 5,
+    'instock.warehouse': 'A'
+})
+
+db.test.find({},{title:1,year:1})
+
+db.test.find({},{_id:0,year:0})
+
+db.test.find({},{"director.firstName":1})
+
+db.inventory.find( { status: "A" }, { item: 1, status: 1, instock: { $slice: -1 } } )
+
+db.test.find({director: {$exists: false}})
+
+db.test.find({
+    _id:ObjectId("65746d33bd8ff83f8dd6e117")
+})
+
+db.test.updateOne({
+    _id:ObjectId("65746d33bd8ff83f8dd6e117")
+},{
+     $set: { "year": 2009, genre: "Sci-Fi" },
+})
+
+db.test.updateOne({
+    year:2023
+},{
+     $set: { "year": 2023, genre: "Sci-Fi" },
+},{
+    upsert:true
+})
+
+db.test.updateOne({
+    year:2023
+},{
+    $set: { "year": 2023, genre: "Drama" },
+    $currentDate: { lastModified: true }
+},{
+    upsert:true
+})
+
+db.test.updateOne({
+    _id:ObjectId("65746d33bd8ff83f8dd6e117")
+},{
+     $set: { "year": 2009, genre: "Sci-Fi","anotherField":"Something" },
+
+})
+db.test.updateOne({
+    _id:ObjectId("65746d33bd8ff83f8dd6e117")
+},[
+    {
+     $set: { "year": 2009, genre: "Sci-Fi","anotherField":"Something" },
+    },
+    { $unset: [ "another" ] }
+])
