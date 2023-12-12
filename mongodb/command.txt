@@ -281,3 +281,26 @@ db.test.updateOne({
     },
     { $unset: [ "another" ] }
 ])
+
+db.test.updateOne({
+    year:2009
+},[
+    {
+     $set: { "anotherField":"Something" },
+    },
+])
+db.test.updateMany(
+    { year: 2009 }, 
+    [ { $set: { "anotherField": "Something" } }] 
+)
+
+db.test.replaceOne({
+    _id:ObjectId("65746d33bd8ff83f8dd6e117")
+},{
+    title:"Replaced title",
+    year :2010
+})
+
+db.test.deleteOne({
+     year :2010
+})
