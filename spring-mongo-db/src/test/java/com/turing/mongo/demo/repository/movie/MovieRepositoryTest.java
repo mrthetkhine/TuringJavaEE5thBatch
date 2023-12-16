@@ -3,6 +3,7 @@ package com.turing.mongo.demo.repository.movie;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ class MovieRepositoryTest {
 	 @Autowired 
 	 ActorRepository actorRepository;
 	
-	 /*
+	 
 	 @Test
 	 void testMovieCRUD() {
 		 
 		 Movie movie = new Movie();
 		 MovieDetail movieDetail = new MovieDetail();
 		 
-		 movie.setName("Inception");
+		 movie.setName("Movie 3");
 		 movie.setDirector("Chrisopher Nolan");
 		 movie.setYear(2010);
 		 
@@ -43,12 +44,14 @@ class MovieRepositoryTest {
 		 List<Actor> actors = new ArrayList<>();
 		 actors.add(actor);
 		 actors.add(actor2);
-		 movie.setActors(actors);
 		 
+		 //movie.setActors(actors.stream().map(act->act.getId()).collect(Collectors.toList()));
+		 movie.setActors(actors);
 		 this.movieRepository.save(movie);
 		 
 	 }
-	 */
+	 
+	 /*
 	 @Test
 	 public void addGenere()
 	 {
@@ -63,5 +66,6 @@ class MovieRepositoryTest {
 		 this.movieRepository.save(movie);
 				 
 	 }
+	 */
 
 }

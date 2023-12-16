@@ -42,6 +42,7 @@ public class Movie {
 	    @DBRef
 	    private List<Actor> actors;
 		
+	    //ArrayList<String> actors;
 	    //embedded model
 	    MovieDetail details;
 	    

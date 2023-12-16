@@ -304,3 +304,85 @@ db.test.replaceOne({
 db.test.deleteOne({
      year :2010
 })
+//join with ObjectId
+db.test.aggregate([
+   
+   { $lookup:
+     {
+       from: 'actors',
+       localField: "actor_id",
+       foreignField: '_id',
+       as: 'joined_actors'
+     }
+    }
+])
+
+db.test.aggregate([
+    {
+        $unwind:"$actor_id"
+    },
+    { $lookup:
+      {
+        from: 'actors',
+        localField: "actor_id",
+        foreignField: '_id',
+        as: 'joined_actors'
+      }
+     },
+    {
+        $unwind:"$joined_actors"
+    },
+    { 
+        "$group": {
+        "_id": "$_id",
+        "actors": { "$push": "$actor_id" },
+        "joined_actors": { "$push": "$joined_actors" }
+    }}
+ ])
+
+
+//join with manual reference
+db.movies.aggregate([
+    
+    { 
+        "$lookup": {
+            "from": "movies",
+            "localField": "actors",
+            "foreignField": "_id",
+            "as": "joined_actors"
+        } 
+    }
+]);
+
+//Join query with DB Ref
+db.movies.aggregate([
+    {
+        $addFields: {
+            "movie_actors": {
+                $map:{
+                    input: "$actors",
+                    as: "actor",
+                    in: '$$actor.$id'
+                }
+                
+            }
+        }
+    },
+    {
+        $unwind : "$movie_actors" 
+    },
+    { 
+        "$lookup": {
+            "from": "actors",
+            "localField": "movie_actors",
+            "foreignField": "_id",
+            "as": "joined_actors"
+        } 
+    },
+    { 
+        "$group": {
+        "_id": "$_id",
+        "actors": { "$push": "$actor_id" },
+        "joined_actors": { "$push": "$joined_actors" }
+    }}
+]);
