@@ -26,9 +26,17 @@ class MovieRepositoryQueryMethodTest {
 	 @Test
 	 public void testQueryMethod()
 	 {
+		 /*
 		 List<Movie> movies = this.movieRepository.findMovieWhereGeneresIs("Sci-Fi");
 		 //List<Movie> movies = this.movieRepository.findByActors_FirstName("Leonardo");
-		 movies.forEach(System.err::println);		 
+		 movies.forEach(System.err::println);	
+		 */
+		 /*
+		 List<String> names = this.movieRepository.findAllName();
+		 names.forEach(System.err::println);
+		 */
+		 List<Movie> movies = this.movieRepository.getAllMovieWithLookup("Leonardo");
+		 movies.forEach(System.err::println);
 	 }
 
 }

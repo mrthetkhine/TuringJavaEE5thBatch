@@ -329,15 +329,20 @@ db.test.aggregate([
         as: 'joined_actors'
       }
      },
-    {
+     {
         $unwind:"$joined_actors"
-    },
+     },
     { 
         "$group": {
         "_id": "$_id",
-        "actors": { "$push": "$actor_id" },
-        "joined_actors": { "$push": "$joined_actors" }
-    }}
+        "joined_actors": { "$push": "$joined_actors" },
+        "doc":{"$first":"$$ROOT"}
+        }
+    },
+    {   "$replaceRoot":{
+            "newRoot":{ $mergeObjects: [ '$doc',{ actors: '$joined_actors' }] },
+        }
+    }
  ])
 
 
@@ -355,6 +360,7 @@ db.movies.aggregate([
 ]);
 
 //Join query with DB Ref
+//join with condition
 db.movies.aggregate([
     {
         $addFields: {
@@ -378,11 +384,29 @@ db.movies.aggregate([
             "foreignField": "_id",
             "as": "joined_actors"
         } 
-    },
+    }, 
     { 
         "$group": {
-        "_id": "$_id",
-        "actors": { "$push": "$actor_id" },
-        "joined_actors": { "$push": "$joined_actors" }
-    }}
+            "_id": "$_id",
+            "joined_actors":{ 
+                                "$push":{ $arrayElemAt: [ "$joined_actors",0] }
+                            },
+            "doc":{"$first":"$$ROOT"}
+        }
+    },
+    {   "$replaceRoot":{
+            "newRoot":{ $mergeObjects: [ '$doc',{ actors: '$joined_actors' }] },
+        }
+    },
+    { $unset: "joined_actors" }
+    ,
+     { 
+        "$match": {
+            "actors": {
+                $elemMatch:{
+                    "firstName":"Kate"
+                }
+            }
+        } 
+    },
 ]);

@@ -5,4 +5,5 @@ import com.turing.mongo.demo.model.Movie;
 
 public interface MovieDao {
 	List<Movie> getAllMovieInYear(int year);
+	List<Movie> getAllMovie();
 }
