@@ -8,8 +8,10 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.turing.mongo.demo.model.Movie;
 
+import reactor.core.publisher.Flux;
+
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-public interface MovieRepository extends MongoRepository<Movie,String>{
+public interface MovieReactiveRepository extends ReactiveMongoRepository<Movie,String>{
 	List<Movie> findByDirector(String director);
 	
 	/*
@@ -17,10 +19,10 @@ public interface MovieRepository extends MongoRepository<Movie,String>{
 	List<Movie> findByActorName(String name);
 	*/
 	@Query("{ 'genre': ?0}")
-	List<Movie> findMovieWhereGeneresIs(String genre);
+	Flux<Movie> findMovieWhereGeneresIs(String genre);
 	
 	 @Aggregation("{ '$project': { '_id' : '$name' } }")
-	 List<String> findAllName();      
+	 Flux<String> findAllName();      
 	 
 	
 	 @Aggregation(pipeline={"{\n"
@@ -75,5 +77,5 @@ public interface MovieRepository extends MongoRepository<Movie,String>{
 	 		+ "            }\n"
 	 		+ "        } \n"
 	 		+ "    }"})
-	 List<Movie> getAllMovieWithLookup(String actorName);
+	 Flux<Movie> getAllMovieWithLookup(String actorName);
 }

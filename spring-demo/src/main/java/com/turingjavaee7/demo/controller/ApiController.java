@@ -22,4 +22,18 @@ public class ApiController {
 		cart.addToCart("Item Two");
 		return cart;
 	}
+	@GetMapping("/hello")
+	String hello()
+	{
+		log.info("Thread name "+Thread.currentThread().getName());
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return "Hello";
+	}
 }
