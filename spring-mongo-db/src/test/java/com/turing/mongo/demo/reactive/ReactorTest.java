@@ -14,6 +14,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.data.util.Streamable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,15 +33,14 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-//@SpringBootTest
-//@Testcontainers
-@DataMongoTest
-@ExtendWith(SpringExtension.class)
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ReactorTest {
 
-	 //@Autowired
-	 //MovieReactiveRepository repository;
+	 @Autowired
+	 MovieReactiveRepository repository;
 	 
+	 /*
 	 @Test
 	 void testReactor() {
 		 
@@ -71,19 +71,21 @@ class ReactorTest {
 	     			.expectNext(new Date(now))
 	     			.verifyComplete();
 	 }
-	 /*
+	 */
 	 @Test
 	 void testMongoReactiveRepository()
 	 {
 		 
 		 Flux<Movie> movies = this.repository.findAll();
-		 movies.subscribe(movie->{
+		 movies
+		 	.map(movie->movie.getName())
+		 	.subscribe(movie->{
 			 System.out.println("Movie" +movie);
 		 });
 		 System.out.println("End of code");
 		 
 	 }
-	 */
+	 
 	
 
 }

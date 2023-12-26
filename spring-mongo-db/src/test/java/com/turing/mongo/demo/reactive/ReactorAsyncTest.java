@@ -17,6 +17,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.data.util.Streamable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -40,10 +41,21 @@ import reactor.test.StepVerifier;
 //@Testcontainers
 @DataMongoTest
 //@ExtendWith(SpringExtension.class)
+
 class ReactorAsyncTest {
 
 	private final ExecutorService executorService = Executors.newFixedThreadPool(1);
 
+	@Test
+	void testInterval()
+	{
+		Flux.interval(Duration.ofMillis(1000))
+								//.take(10)
+				                .subscribe(data->{
+				                	System.out.println("Data from interval "+data);
+				                });
+		
+	}
 	@Test
 	void testReactor() {
 
