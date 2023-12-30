@@ -13,11 +13,13 @@ import com.turing.mongo.demo.scheduler.ScheduledTasks;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RestController
 public class HelloWorldController {
-
+	Scheduler s = Schedulers.boundedElastic();
 	@Autowired
 	MovieReactiveRepository repository;
 	
@@ -31,16 +33,24 @@ public class HelloWorldController {
 			 System.out.println("Movie" +movie);
 		 });
 		 */
-		try
-		{
-			Thread.sleep(2000);
+		return toCallable();
+					
+	}
+
+	String getData()
+	{
+		try{
+			Thread.sleep(5000);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		//System.out.println("Done"); 
-		return Mono.just("Hello");
-					
+		return "Hello";
+	}
+	private Mono<String> toCallable() {
+		//Scheduler s = Schedulers.newParallel("parallel-scheduler", 4);
+		return Mono.fromCallable(()->getData())
+					.publishOn(s);
 	}
 }
