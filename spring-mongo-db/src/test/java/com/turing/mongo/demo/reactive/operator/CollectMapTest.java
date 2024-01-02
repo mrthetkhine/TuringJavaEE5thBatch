@@ -1,10 +1,11 @@
-package com.turing.mongo.demo.reactive;
+package com.turing.mongo.demo.reactive.operator;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,27 +38,40 @@ import reactor.util.function.Tuples;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ReactorTest {
+class CollectMapTest {
 
 	 @Autowired
 	 MovieReactiveRepository repository;
 	 
+	 
+	
 	 @Test
 	 void testMongoReactiveRepository()
 	 {
 		 
 		
 		 Flux<Movie> movies = this.repository.findAll();
-		 
-		 Flux<Tuple2<String,Integer>> directorAndActors= movies
-	 				.map(movie-> Tuples.of(movie.getDirector(),movie.getActors().size()));
-		 directorAndActors.subscribe(tuple->{
-			System.out.println("Director "+tuple.getT1()+" Actors count "+tuple.getT2()); 
+		 Mono<Map<String,Integer>> map= movies.filter(movie->movie.getActors().size()>=2)
+		 		//.map(movie->movie.getDirector())//Flux<String>
+		 		.collectMap(movie->movie.getId(),movie->movie.getActors().size());
+		 		//.subscribe(System.err::println);
+		 map.subscribe(data->{
+			data.forEach((key,value)->{
+				System.out.println("Key "+key+ " Value "+value);
+			});
 		 });
-		 System.out.println("End of code");
-		 
 	 }
 	 
+	 @Test
+	 void testCount()
+	 {
+		 
+		
+		 Flux<Movie> movies = this.repository.findAll();
+		 movies.count()
+		 		.subscribe(movieCount->{
+		 			System.out.println("Movie count "+movieCount);
+		 		});
+	 }
 	
-
 }

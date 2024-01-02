@@ -1,4 +1,4 @@
-package com.turing.mongo.demo.reactive;
+package com.turing.mongo.demo.reactive.operator;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -37,24 +37,38 @@ import reactor.util.function.Tuples;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ReactorTest {
+class PreselectTest {
 
 	 @Autowired
 	 MovieReactiveRepository repository;
 	 
+	 
+	 @Test
+	 void testReactor() {
+		 
+		
+		 Flux<Integer> rangeOfIntegers = Flux.range(0, 10);
+		 //rangeOfIntegers.startWith(10,20,30)
+		 Flux<Integer> all = rangeOfIntegers.concatWithValues(10,20,30);
+		 				//.subscribe(System.out::println);
+		 System.out.println("End");
+		 Mono<List<Integer>> data = all.collectList();
+		 data.subscribe(items->{
+			System.out.println(items); 
+		 });
+		 //StepVerifier.create(rangeOfIntegers).expectNextCount(10).verifyComplete();
+	 }
+	
 	 @Test
 	 void testMongoReactiveRepository()
 	 {
 		 
 		
 		 Flux<Movie> movies = this.repository.findAll();
-		 
-		 Flux<Tuple2<String,Integer>> directorAndActors= movies
-	 				.map(movie-> Tuples.of(movie.getDirector(),movie.getActors().size()));
-		 directorAndActors.subscribe(tuple->{
-			System.out.println("Director "+tuple.getT1()+" Actors count "+tuple.getT2()); 
-		 });
-		 System.out.println("End of code");
+		 movies.filter(movie->movie.getActors().size()>=2)
+		 		.map(movie->movie.getDirector())//Flux<String>
+		 		.collectList()
+		 		.subscribe(System.err::println);
 		 
 	 }
 	 

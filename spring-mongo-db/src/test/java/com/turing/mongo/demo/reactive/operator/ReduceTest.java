@@ -1,10 +1,11 @@
-package com.turing.mongo.demo.reactive;
+package com.turing.mongo.demo.reactive.operator;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,27 +38,34 @@ import reactor.util.function.Tuples;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ReactorTest {
+class ReduceTest {
 
 	 @Autowired
 	 MovieReactiveRepository repository;
 	 
+	 
+	 @Test
+	 void testReduce()
+	 {
+		 Flux<Integer> range = Flux.range(0, 11);
+		 range.reduce((a,b)->a+b)
+		 	  .subscribe(total->{
+		 		  System.out.println("Total is "+total);
+		 	  });
+	 }
 	 @Test
 	 void testMongoReactiveRepository()
 	 {
 		 
 		
 		 Flux<Movie> movies = this.repository.findAll();
-		 
-		 Flux<Tuple2<String,Integer>> directorAndActors= movies
-	 				.map(movie-> Tuples.of(movie.getDirector(),movie.getActors().size()));
-		 directorAndActors.subscribe(tuple->{
-			System.out.println("Director "+tuple.getT1()+" Actors count "+tuple.getT2()); 
+		 movies.reduce((movieA,movieB)->{
+			 return movieA.getYear() < movieB.getYear()?movieA:movieB;
+		 })
+		 .subscribe(movie->{
+			 System.out.println("Oldest movie "+movie);
 		 });
-		 System.out.println("End of code");
-		 
 	 }
 	 
-	
-
+	 
 }

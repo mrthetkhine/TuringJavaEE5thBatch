@@ -1,4 +1,4 @@
-package com.turing.mongo.demo.reactive;
+package com.turing.mongo.demo.reactive.operator;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -37,25 +37,35 @@ import reactor.util.function.Tuples;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class ReactorTest {
+class FlatMapTest {
 
 	 @Autowired
 	 MovieReactiveRepository repository;
 	 
+	 Mono<String> titleToMono(String title)
+	 {
+		 return Mono.just(title);
+	 }
 	 @Test
 	 void testMongoReactiveRepository()
 	 {
-		 
-		
+	
 		 Flux<Movie> movies = this.repository.findAll();
+		 /*
+		 Flux<Mono<String>> list = movies.map(movie->titleToMono(movie.getName()));
 		 
-		 Flux<Tuple2<String,Integer>> directorAndActors= movies
-	 				.map(movie-> Tuples.of(movie.getDirector(),movie.getActors().size()));
-		 directorAndActors.subscribe(tuple->{
-			System.out.println("Director "+tuple.getT1()+" Actors count "+tuple.getT2()); 
+		 list.subscribe(data->{
+			 data.subscribe(str->{
+				 System.out.println("Data "+str); 
+			 });	
 		 });
-		 System.out.println("End of code");
-		 
+		 */
+		 Flux<String> ids = movies.map(movie->movie.getId());
+		 Flux<Mono<Movie>> movieByIds = ids.map(id->this.repository.findById(id));
+		 Flux<Movie> movieByIdsTwo = ids.flatMap(id->this.repository.findById(id));
+		 movieByIdsTwo.subscribe(movie->{
+			System.out.println(movie); 
+		 });
 	 }
 	 
 	
