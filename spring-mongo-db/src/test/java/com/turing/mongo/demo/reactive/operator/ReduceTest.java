@@ -59,10 +59,10 @@ class ReduceTest {
 		 
 		
 		 Flux<Movie> movies = this.repository.findAll();
-		 movies.reduce((movieA,movieB)->{
+		 Mono<Movie> result = movies.reduce((movieA,movieB)->{
 			 return movieA.getYear() < movieB.getYear()?movieA:movieB;
-		 })
-		 .subscribe(movie->{
+		 });
+		 result.subscribe(movie->{
 			 System.out.println("Oldest movie "+movie);
 		 });
 	 }
