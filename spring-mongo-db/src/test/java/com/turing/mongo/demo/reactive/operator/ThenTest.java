@@ -41,8 +41,9 @@ public class ThenTest {
 		return Mono.just("second");
 				
 	}
+	/*
 	@Test
-	public void testZip()
+	public void testThen()
 	{
 		
 		Flux<String> one = Flux.just("apple","orange","banana")
@@ -67,5 +68,54 @@ public class ThenTest {
 			e.printStackTrace();
 		}
 	
+	}
+	*/
+	/*
+	@Test
+	public void testThenReturn()
+	{
+		second()
+			.thenReturn("Hello")
+			.subscribe(data->{
+				System.out.println("Data "+data);
+			});
+	}
+	@Test
+	public void testThenMany()
+	{
+		Flux<String> many = Flux.just("Hello","world");
+		second()
+			.thenMany(many)
+			.subscribe(data->{
+				System.out.println("Data "+data);
+			});
+		
+	}
+	*/
+	@Test
+	public void testThenManyFlux()
+	{
+		Flux<String> many = Flux.just("Hello","world")
+							.delayElements(Duration.ofMillis(500));
+		many.map(item->{
+			System.out.println("Item "+item);
+			return item.toUpperCase();
+		})
+		.map(item->{
+			System.out.println("Uppercase "+item);
+			return item;
+		})
+		.then(Mono.just("Completed"))
+		.subscribe(date->{
+			System.out.println("Completed");
+		});
+		try
+		{
+			Thread.sleep(5000);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
