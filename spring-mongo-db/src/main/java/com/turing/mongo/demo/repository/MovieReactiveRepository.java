@@ -21,6 +21,9 @@ public interface MovieReactiveRepository extends ReactiveMongoRepository<Movie,S
 	@Query("{ 'genre': ?0}")
 	Flux<Movie> findMovieWhereGeneresIs(String genre);
 	
+	@Query("{ 'year': ?0}")
+	Flux<Movie> findByYear(Long year);
+	
 	 @Aggregation("{ '$project': { '_id' : '$name' } }")
 	 Flux<String> findAllName();      
 	 
