@@ -8,4 +8,6 @@ public interface MovieService {
 	Flux<MovieDto> getAllMovie();
 	Mono<Movie> getMovieById(String id);
 	Flux<Movie> getMovieByYear(Long year);
+	Mono<Movie> saveMovie(MovieDto movieDto);
+	Mono<MovieDto> updateMovieById(String movieId,MovieDto movieDto);
 }

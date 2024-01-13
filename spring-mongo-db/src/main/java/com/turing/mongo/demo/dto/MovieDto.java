@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class MovieDto {
 	private String id;
 
-    @NotBlank
+    @NotBlank(message="movie name must not be blank")
     @Size(max = 140)
     private String name;
     
@@ -35,7 +35,11 @@ public class MovieDto {
     //@NotNull
     private Date createdAt;
     
-    MovieDetailsDto movieDetails;
+    MovieDetailsDto details;
+    
+    ArrayList<String> genres;
+    
+    private List<ActorDto> actors;
    
 
 }
