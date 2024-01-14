@@ -6,8 +6,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 public interface MovieService {
 	Flux<MovieDto> getAllMovie();
+	Flux<MovieDto> getAllMovieByActor(String actor);
 	Mono<Movie> getMovieById(String id);
 	Flux<Movie> getMovieByYear(Long year);
 	Mono<Movie> saveMovie(MovieDto movieDto);
 	Mono<MovieDto> updateMovieById(String movieId,MovieDto movieDto);
+	Mono<MovieDto> deleteByMovieId(String movieId);
 }

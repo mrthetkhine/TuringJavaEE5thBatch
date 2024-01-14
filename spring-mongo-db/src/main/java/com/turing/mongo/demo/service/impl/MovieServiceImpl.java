@@ -38,7 +38,12 @@ public class MovieServiceImpl implements MovieService{
 		return this.movieRepository.findAll()
 						.map(this::entityToDto);
 	}
-
+	@Override
+	public Flux<MovieDto> getAllMovieByActor(String actor) {
+		
+		return this.movieRepository.getAllMovieWithLookup(actor)
+					.map(this::entityToDto);
+	}
 	private MovieDto entityToDto(Movie movie) {
 		MovieDto dto = modelMapper.map(movie, MovieDto.class);
 		MovieDetailsDto movieDetailsDto =modelMapper.map(movie.getDetails(), MovieDetailsDto.class); 
@@ -92,5 +97,21 @@ public class MovieServiceImpl implements MovieService{
 									
 									
 	}
+
+	@Override
+	public Mono<MovieDto> deleteByMovieId(String movieId) {
+		return this.movieRepository.findById(movieId)	
+									.switchIfEmpty(Mono.error(new BusinessException("Movie id not found")))
+									.flatMap(entity->{
+										return this.movieRepository.deleteById(movieId)
+													.thenMany(Mono.just(entity))
+													.single()
+													.map(movie->this.entityToDto(movie));		
+																				
+									});
+					
+	}
+
+	
 	
 }

@@ -38,8 +38,9 @@ class MovieRepositoryTest {
 		 movieDetail.setDetails("Good sci-fi-movies");
 		 movie.setDetails(movieDetail);
 		 
-		 Actor actor = this.actorRepository.findById("657868667fdcb23c8e616359").get();
-		 Actor actor2 = this.actorRepository.findById("65786b944df196549f9f1ec4").get();
+		 //Do not use block
+		 Actor actor = this.actorRepository.findById("657868667fdcb23c8e616359").block();
+		 Actor actor2 = this.actorRepository.findById("65786b944df196549f9f1ec4").block();
 		
 		 List<Actor> actors = new ArrayList<>();
 		 actors.add(actor);
