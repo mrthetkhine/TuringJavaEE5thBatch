@@ -12,4 +12,5 @@ public interface MovieService {
 	Mono<Movie> saveMovie(MovieDto movieDto);
 	Mono<MovieDto> updateMovieById(String movieId,MovieDto movieDto);
 	Mono<MovieDto> deleteByMovieId(String movieId);
+	Flux<String> getDirectorNameWithAverageRatingGt(Integer rating);
 }

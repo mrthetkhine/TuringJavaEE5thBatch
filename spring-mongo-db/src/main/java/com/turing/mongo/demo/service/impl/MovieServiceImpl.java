@@ -2,6 +2,7 @@ package com.turing.mongo.demo.service.impl;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -15,12 +16,15 @@ import com.turing.mongo.demo.dto.MovieDto;
 import com.turing.mongo.demo.model.Actor;
 import com.turing.mongo.demo.model.Movie;
 import com.turing.mongo.demo.model.MovieDetail;
+import com.turing.mongo.demo.model.Review;
 import com.turing.mongo.demo.repository.ActorRepository;
 import com.turing.mongo.demo.repository.MovieReactiveRepository;
+import com.turing.mongo.demo.repository.ReviewRepository;
 import com.turing.mongo.demo.service.MovieService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuples;
 
 @Service
 public class MovieServiceImpl implements MovieService{
@@ -32,6 +36,9 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	ActorRepository actorRepository;
 
+	@Autowired
+	ReviewRepository reviewRepository;
+	
 	@Override
 	public Flux<MovieDto> getAllMovie() {
 		
@@ -110,6 +117,19 @@ public class MovieServiceImpl implements MovieService{
 																				
 									});
 					
+	}
+	@Override
+	public Flux<String> getDirectorNameWithAverageRatingGt(Integer rating) {
+		return this.reviewRepository.findAll()
+					.groupBy(review->review.getMovie().getId())
+					.flatMap(group->{
+						return group.collect(Collectors.averagingInt(Review::getRating))
+									.map(averageRating->Tuples.of(group.key(), averageRating));
+					})
+					.filter(tuple-> tuple.getT2()>= rating)
+					.flatMap(tuple->this.movieRepository.findById(tuple.getT1()))
+					.map(movie->movie.getDirector())
+					.distinct();
 	}
 
 	

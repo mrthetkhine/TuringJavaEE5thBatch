@@ -48,6 +48,17 @@ public class MovieController {
 		log.info("getmovie controller");
 		return this.movieService.getAllMovie();
 	}
+	@GetMapping("/directors/{rating}")
+	Mono<ResponseEntity<RestResponse>> getDirectorWithAverageRatingGt(@PathVariable Integer rating)
+	{
+		log.info("directors/{rating}");
+		return this.movieService.getDirectorNameWithAverageRatingGt(rating)
+				.doOnNext(data->{
+					System.out.println("Data "+data);
+				})
+				.collectList()
+				.map(this::success);
+	}
 	@GetMapping("/{movieId}")
 	Mono<ResponseEntity<Movie>> getMovieById(@PathVariable String movieId)
 	{
@@ -69,7 +80,36 @@ public class MovieController {
 		reviewDto.setMovieId(movieId);
 		return this.reviewService.saveReviewForMovie(reviewDto)
 								.map(review->success(review))
-								.onErrorReturn(BusinessException.class, notFoundFallBack());
+								.onErrorReturn(BusinessException.class, notFoundFallBack("Movie id not found"));
+	}
+	
+	@PutMapping("/reviews/{reviewId}")
+	Mono<ResponseEntity<RestResponse>> updateReview(
+				@PathVariable String reviewId,
+				@Valid @RequestBody ReviewDto reviewDto)
+	{
+		log.info("update reivew controller");
+		reviewDto.setId(reviewId);
+		return this.reviewService.updateReview(reviewDto)
+								.map(review->success(review))
+								//.onErrorReturn(BusinessException.class,  notFoundFallBack("Review not found"));
+								.onErrorResume(BusinessException.class, (e)->{
+									return Mono.just(notFoundFallBack(e.getMessage()));
+								});
+								
+	}
+	@DeleteMapping("/reviews/{reviewId}")
+	Mono<ResponseEntity<RestResponse>> deleteReview(@PathVariable String reviewId)
+	{
+		log.info("deleteReview  controller");
+	
+		return this.reviewService.deleteReivewById(reviewId)
+								.map(review->success(review))
+								//.onErrorReturn(BusinessException.class,  notFoundFallBack("Review not found"));
+								.onErrorResume(BusinessException.class, (e)->{
+									return Mono.just(notFoundFallBack(e.getMessage()));
+								});
+								
 	}
 	@GetMapping("/year/{year}")
 	Flux<Movie> findMovieByYear(@PathVariable Long year)
@@ -89,10 +129,10 @@ public class MovieController {
 		return this.movieService.saveMovie(movieDto);
     }
 	
-	ResponseEntity<RestResponse> notFoundFallBack()
+	ResponseEntity<RestResponse> notFoundFallBack(String message)
 	{
 		RestResponse response = new RestResponse();
-		response.setError("Movie id not found");
+		response.setError(message);
 		return ResponseEntity
 					.status(HttpStatusCode.valueOf(404))
 					.body(response);
@@ -109,7 +149,8 @@ public class MovieController {
     {
 		return this.movieService.updateMovieById(movieId, movieDto)
 					.map(movie->success(movie))
-					.onErrorReturn(BusinessException.class, notFoundFallBack());
+					.onErrorReturn(BusinessException.class, notFoundFallBack("Movie not found"));
+					
 					
 					
     }
@@ -118,7 +159,7 @@ public class MovieController {
     {
 		return this.movieService.deleteByMovieId(movieId)
 					.map(movie->success(movie))
-					.onErrorReturn(BusinessException.class, notFoundFallBack());
+					.onErrorReturn(BusinessException.class, notFoundFallBack("Movie not found"));
 					
 					
     }

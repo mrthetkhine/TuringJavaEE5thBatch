@@ -18,7 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDto {
-	private String id;
+	
+	String id;
 	
 	@NotBlank(message="movie Id should not be blank")
 	String movieId;

@@ -20,6 +20,7 @@ import reactor.core.scheduler.Schedulers;
 @RestController
 public class HelloWorldController {
 	Scheduler s = Schedulers.boundedElastic();
+	
 	@Autowired
 	MovieReactiveRepository repository;
 	
@@ -49,7 +50,7 @@ public class HelloWorldController {
 		return "Hello";
 	}
 	private Mono<String> toCallable() {
-		//Scheduler s = Schedulers.newParallel("parallel-scheduler", 4);
+		
 		return Mono.fromCallable(()->getData())
 					.publishOn(s);
 	}

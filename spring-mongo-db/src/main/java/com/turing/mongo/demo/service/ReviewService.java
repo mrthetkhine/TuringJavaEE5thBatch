@@ -6,6 +6,7 @@ import reactor.core.publisher.Mono;
 public interface ReviewService {
 	Flux<ReviewDto> getAllReviewByMovieId(String movieId);
 	Mono<ReviewDto> saveReviewForMovie(ReviewDto reviewDto);
-	
+	Mono<ReviewDto> updateReview(ReviewDto reviewDto);
+	Mono<ReviewDto> deleteReivewById(String reviewId);
 	//Flux<String> getAllDirectorOfMovieWithAverageRatingGt(Integer rating);
 }

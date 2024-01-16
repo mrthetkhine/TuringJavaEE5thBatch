@@ -57,5 +57,27 @@ public class ReviewServieImpl implements ReviewService{
 							});
 
 	}
+	@Override
+	public Mono<ReviewDto> updateReview(ReviewDto reviewDto) {
+		return this.reviewRepository.findById(reviewDto.getId())
+									.switchIfEmpty(Mono.error(new BusinessException("Review id >> not found")))	
+									.flatMap(reviewEntity->{
+										reviewEntity.setRating(reviewDto.getRating());
+										reviewEntity.setReview(reviewDto.getReview());
+										return this.reviewRepository.save(reviewEntity)
+																	.map(this::entityToDto);
+									});
+	}
+	@Override
+	public Mono<ReviewDto> deleteReivewById(String reviewId) {
+		
+		return this.reviewRepository.findById(reviewId)
+			  .switchIfEmpty(Mono.error(new BusinessException("Review id >> not found")))
+			  .flatMap(review->{
+				  return this.reviewRepository.delete(review)
+				  		.thenReturn(review)
+				  		.map(entity->this.entityToDto(entity));
+			  });
+	}
 
 }
