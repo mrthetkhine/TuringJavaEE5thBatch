@@ -3,5 +3,5 @@ import com.turing.mongo.demo.dto.*;
 
 import reactor.core.publisher.Mono;
 public interface TodoService {
-	Mono<TodoDto> getTodoById(Integer todoId);
+	Mono<TodoDto> getTodoById(String todoId);
 }

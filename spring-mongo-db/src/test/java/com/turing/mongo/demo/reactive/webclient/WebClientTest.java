@@ -18,8 +18,8 @@ public class WebClientTest {
 	@Test
 	public void testGetTodo()
 	{
-		Mono<TodoDto> first = this.todoService.getTodoById(1);
-		Mono<TodoDto> second = this.todoService.getTodoById(2);
+		Mono<TodoDto> first = this.todoService.getTodoById("1");
+		Mono<TodoDto> second = this.todoService.getTodoById("2");
 		Mono.zip(first,second)
 			.subscribe(data->{
 				System.out.println(data);
