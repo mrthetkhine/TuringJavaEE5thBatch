@@ -1,0 +1,442 @@
+{
+	"info": {
+		"_postman_id": "2320ee7c-ea80-4322-8568-52a99f03c915",
+		"name": "JavaEE5thReactive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5339096",
+		"_collection_link": "https://workulture.postman.co/workspace/React-Workspace~d09f8cbf-4395-49e4-8bff-990056c02477/collection/5339096-2320ee7c-ea80-4322-8568-52a99f03c915?action=share&source=collection_link&creator=5339096"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"admin2\",\n    \"email\":\"admin@gmail.com\",\n    \"password\":\"admin2\",\n    \"roles\":[ {\n        \"role\":\"ADMIN\"\n    }]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n \n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movie",
+			"item": [
+				{
+					"name": "reviews",
+					"item": [
+						{
+							"name": "GetReviews",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJpYXQiOjE2NTkxODgxMjksImV4cCI6MTY1OTE5MTcyOX0.52buUImfBs_tXbSZGv4yro3gfld7ai91KTuCgx3qEAk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/movies/65786a3c3d81ae6743e5af1c/reviews",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"movies",
+										"65786a3c3d81ae6743e5af1c",
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveReview",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"movieId\":\"65a285a8b9314f6b792a95ac\",\n    \"rating\":5,\n    \"review\":\"To delete movie\"\n\n}"
+								},
+								"url": {
+									"raw": "{{url}}/movies/65a285a8b9314f6b792a95ac/reviews",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"movies",
+										"65a285a8b9314f6b792a95ac",
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateReview",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"65a3e3d175dce009a0ad6076\",\n    \"movieId\":\"65786a3c3d81ae6743e5af1c\",\n    \"rating\":4,\n    \"review\":\"Good movie updated\"\n\n}"
+								},
+								"url": {
+									"raw": "{{url}}/movies/reviews/65a3e3d175dce009a0ad6076",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"movies",
+										"reviews",
+										"65a3e3d175dce009a0ad6076"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteReview",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/movies/reviews/65a3e3d175dce009a0ad6076",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"movies",
+										"reviews",
+										"65a3e3d175dce009a0ad6076"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GetMovies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJBRE1JTiIsImV4cCI6MTcwNjEwNTMwOH0.V37BRjrUkMqpjTQZD8oNVzNJJN5ftBLREDNkU_5G5N9OygJc2ao_JFosyaaL1xI-dM7_tx9RqEAGyRoi-wIMrg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMovie",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJpYXQiOjE2NTkxODgxMjksImV4cCI6MTY1OTE5MTcyOX0.52buUImfBs_tXbSZGv4yro3gfld7ai91KTuCgx3qEAk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies/65786a3c3d81ae6743e5af1d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"65786a3c3d81ae6743e5af1d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveMovie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Update title\",\n    \"year\":2005,\n    \"director\":\"Director 5\",\n    \"actors\":[\n        {\n            \"id\": \"65a285a8b9314f6b792a95aa\",\n            \"firstName\":\"Actor 1 for movie 5 updated\",\n            \"lastName\":\"Decaprio\"\n        },\n         {\n            \"id\": \"65a285a8b9314f6b792a95ab\",\n            \"firstName\":\"Kate\",\n            \"lastName\":\"Winslect\"\n        }\n    ],\n    \"details\":{\n        \"details\":\"This movie test our collection mapping\"\n    }\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateMovie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"65a28643b9314f6b792a95ae\",\n    \"name\":\"Update title\",\n    \"year\":2005,\n    \"director\":\"Director 5\",\n    \"actors\":[\n        {\n            \"id\": \"65a285a8b9314f6b792a95aa\",\n            \"firstName\":\"Actor 1 for movie 5 updated\",\n            \"lastName\":\"Decaprio\"\n        },\n         {\n            \"id\": \"65a285a8b9314f6b792a95ab\",\n            \"firstName\":\"Kate\",\n            \"lastName\":\"Winslect\"\n        }\n    ],\n    \"details\":{\n        \"details\":\"This movie test our collection mapping\"\n    }\n\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movies/65a28643b9314f6b792a95ae",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"65a28643b9314f6b792a95ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMovie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/movies/actor?actor=Leonardo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"actor"
+							],
+							"query": [
+								{
+									"key": "actor",
+									"value": "Leonardo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteMovie",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/movies/65a28643b9314f6b792a95ae",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"65a28643b9314f6b792a95ae"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchMovieByDirector",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/movies/name?movieName=Movie 1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"name"
+							],
+							"query": [
+								{
+									"key": "movieName",
+									"value": "Movie 1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDirectorWithAverageRatingGt",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies/directors/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"directors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CosumeRest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/consume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consume"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -41,7 +41,7 @@ public class HelloWorldController {
 	String getData()
 	{
 		try{
-			Thread.sleep(5000);
+			//Thread.sleep(5000);
 		}
 		catch(Exception e)
 		{
