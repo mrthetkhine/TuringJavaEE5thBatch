@@ -17,6 +17,7 @@ import com.turing.mongo.demo.repository.UserRepository;
 import com.turing.mongo.demo.security.jwt.JWTReactiveAuthenticationManager;
 import com.turing.mongo.demo.security.jwt.JWTToken;
 import com.turing.mongo.demo.security.jwt.TokenProvider;
+import com.turing.mongo.demo.service.AuthService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.Validator;
@@ -26,21 +27,14 @@ import reactor.core.publisher.Mono;
 @RestController
 @Slf4j
 public class AuthController {
-	private final TokenProvider tokenProvider;
-    private final JWTReactiveAuthenticationManager authenticationManager;
+
     private final Validator validation;
 
-    @Autowired
-	UserRepository userRepository;
-	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	AuthService authService;
 	
-    public AuthController(TokenProvider tokenProvider,
-                             JWTReactiveAuthenticationManager authenticationManager,
-                             Validator validation) {
-        this.tokenProvider = tokenProvider;
-        this.authenticationManager = authenticationManager;
+    public AuthController(Validator validation) {
+    
         this.validation = validation;
     }
     @RequestMapping("/register")
@@ -50,43 +44,10 @@ public class AuthController {
         if (!this.validation.validate(user).isEmpty()) {
             return Mono.error(new RuntimeException("Bad request"));
         }
-        return this.userRepository.findByUsername(user.getUsername())
-        						
-        				    .map(userEntity->{
-        						throw new RuntimeException("User already exist");
-        					})
-        				    .switchIfEmpty(Mono.defer(()->this.registerUser(user)))
-        				    //.cast(User.class)
-        				    .flatMap(saveUser->{
-        				    	log.info("New user have been saved "+saveUser);
-        				    	//log.info("Password "+user.getPassword());
-        				    	Authentication authenticationToken =
-        				                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-
-        				        Mono<Authentication> authentication = this.authenticationManager.authenticate(authenticationToken);
-        				        authentication.doOnError(throwable -> {
-        				        	log.info("authentication on Error");
-        				            throw new BadCredentialsException("Bad crendentials");
-        				        });
-        				        ReactiveSecurityContextHolder.withAuthentication(authenticationToken);
-
-        				        return authentication.map(auth -> {
-        				            String jwt = tokenProvider.createToken(auth);
-        				            return new JWTToken(jwt);
-        				        })
-        				        .log();
-        				    });
+        return this.authService.register(user);
     }
     
-    Mono<User> registerUser(User user)
-    {
-    	User saveUser = new User();
-    	saveUser.setUsername(user.getUsername());
-    	saveUser.setPassword(this.passwordEncoder.encode(user.getPassword()));
-    	saveUser.setEmail(user.getEmail());
-    	saveUser.setRoles(user.getRoles());
-    	return this.userRepository.save(saveUser);
-    }
+   
     @RequestMapping("/login")
     @PostMapping
     public Mono<JWTToken> login(@Valid @RequestBody User user) {
@@ -95,18 +56,6 @@ public class AuthController {
             return Mono.error(new RuntimeException("Bad request"));
         }
 
-        Authentication authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-
-        Mono<Authentication> authentication = this.authenticationManager.authenticate(authenticationToken);
-        authentication.doOnError(throwable -> {
-            throw new BadCredentialsException("Bad crendentials");
-        });
-        ReactiveSecurityContextHolder.withAuthentication(authenticationToken);
-
-        return authentication.map(auth -> {
-            String jwt = tokenProvider.createToken(auth);
-            return new JWTToken(jwt);
-        });
+        return this.authService.login(user);
     }
 }
