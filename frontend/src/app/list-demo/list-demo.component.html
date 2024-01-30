@@ -1,0 +1,21 @@
+<div>
+  <label for="customer-input">Type something:
+    <input id="customer-input" #customerInput>
+
+    {{customerInput.value}}
+  </label>
+  <div>
+    Name {{human.name}}
+    <br/>
+    Age {{human.age}}
+  </div>
+  <ul>
+    <li *ngFor="let item of items;index as i">
+      {{item}} index {{i}}
+    </li>
+    <ng-template [ngIf]="flag">
+      <div>Flag is true</div>
+    </ng-template>
+    <button type="button" (click)="btnToggleHandler()">Toggle</button>
+  </ul>
+</div>

@@ -1,0 +1,6 @@
+<div [className]="themClass">
+  <img [src]="imageUrl" width="400" height="400"/>
+  <button type="button" [disabled]="isDisable">Disabled Button</button>
+  <button (click)="btnChangeHandler()">Change</button>
+  <button (click)="btnChangeThemeHandler()">Change Theme</button>
+</div>
