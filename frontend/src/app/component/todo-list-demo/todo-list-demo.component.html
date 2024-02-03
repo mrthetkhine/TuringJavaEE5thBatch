@@ -1,0 +1,9 @@
+<div>
+  Todo list demo
+
+  <app-todo *ngFor="let todo of todos;"
+            [todo]="todo"
+            (onDelete)="deleteEvent($event)"
+    />
+
+</div>

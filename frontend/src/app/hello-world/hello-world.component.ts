@@ -50,4 +50,8 @@ export class HelloWorldComponent implements OnInit{
   {
     console.log('Btn click');
   }
+  changeDate()
+  {
+    this.currentDate =new Date();
+  }
 }

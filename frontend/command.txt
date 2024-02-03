@@ -1,1 +1,2 @@
-ng generate component HelloWorld
+ng generate component component/HelloWorld
+ng generate class models/User --type=model
