@@ -1,0 +1,11 @@
+<div>
+  <div *ngFor="let header of headers;index as i;"
+       class="tab-header"
+       (click)="setActiveTab(i)">
+    {{header}}
+  </div>
+  <div>
+    <ng-content/>
+  </div>
+
+</div>

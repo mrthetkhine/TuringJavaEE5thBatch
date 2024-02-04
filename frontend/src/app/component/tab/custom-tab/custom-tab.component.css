@@ -1,0 +1,8 @@
+.tab-header
+{
+  min-width: 100px;
+  text-align: center;
+  display: inline-block;
+  border: 1px solid gray;
+  cursor: pointer;
+}
