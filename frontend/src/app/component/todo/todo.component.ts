@@ -19,6 +19,10 @@ export class TodoComponent {
   {
     console.log('OnChange');
   }
+  ngAfterContentChecked()
+  {
+    console.log('Content checked');
+  }
   deleteBtnHandler(event:MouseEvent)
   {
     console.log('Todo.deleteBtnHandler ',event);

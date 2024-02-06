@@ -13,9 +13,14 @@
 
 <main class="main">
   <div class="content">
-
+    <nav>
+      <ul>
+        <li><a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a></li>
+        <li><a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page">Second Component</a></li>
+      </ul>
+    </nav>
     <!--  <app-hello-world/>-->
-   <!-- <app-list-demo/>-->
+    <!--<app-list-demo/>-->
   <!--  <app-image-demo/>-->
     <!---->
     <!--<app-user [user]="user"
@@ -23,7 +28,7 @@
               data="3"
               (btnClick)="clickHandler($event)"/>
 -->
-     <!-- <app-todo-list-demo></app-todo-list-demo>-->
+
     <!--<app-border>
       <div class="first" >
         Hello
@@ -42,7 +47,13 @@
    <!-- <app-view-child-demo></app-view-child-demo>-->
    <!-- <app-profile-photo />-->
   <!--  <app-dynamic-render-demo/>-->
-    <app-view-container-demo/>
+    <!--<app-view-container-demo/>-->
+   <!-- <app-sizer [(size)]="fontSizePx"></app-sizer>
+    <div [style.font-size.px]="fontSizePx">Resizable Text</div>-->
+   <!-- <app-directive-demo/>-->
+    <!--<app-track-by-demo/>-->
+    <!--<app-todo-list-demo></app-todo-list-demo>-->
+    <app-signal-demo/>
   </div>
 </main>
 

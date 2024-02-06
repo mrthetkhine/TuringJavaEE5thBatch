@@ -17,6 +17,10 @@ import {ViewChildDemoComponent} from "./component/view-child-demo/view-child-dem
 import {ProfilePhotoComponent} from "./component/profile-photo/profile-photo.component";
 import {DynamicRenderDemoComponent} from "./component/dynamicrender/dynamic-render-demo/dynamic-render-demo.component";
 import {ViewContainerDemoComponent} from "./component/viewcontainer/view-container-demo/view-container-demo.component";
+import {SizerComponent} from "./component/twowaybinding/sizer/sizer.component";
+import {DirectiveDemoComponent} from "./component/directive-demo/directive-demo.component";
+import {TrackByDemoComponent} from "./component/track-by-demo/track-by-demo.component";
+import {SignalDemoComponent} from "./component/signal-demo/signal-demo.component";
 
 
 @Component({
@@ -37,13 +41,17 @@ import {ViewContainerDemoComponent} from "./component/viewcontainer/view-contain
     ProfilePhotoComponent,
     DynamicRenderDemoComponent,
     ViewContainerDemoComponent,
+    SizerComponent,
+    DirectiveDemoComponent,
+    TrackByDemoComponent,
+    SignalDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'forntend';
-
+  fontSizePx = 10;
   user:User = {
     name : 'Tk',
     email:'somewhere@gmail.com'

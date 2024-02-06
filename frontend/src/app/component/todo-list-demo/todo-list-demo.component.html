@@ -1,7 +1,13 @@
 <div>
   Todo list demo
 
-  <app-todo *ngFor="let todo of todos;"
+  <button class="btn btn-primary"
+          type="button"
+          (click)="addTodo()">Add</button>
+  <button class="btn btn-primary"
+          type="button"
+          (click)="reset()">Reset</button>
+  <app-todo *ngFor="let todo of todos; trackBy: trackByItems"
             [todo]="todo"
             (onDelete)="deleteEvent($event)"
     />

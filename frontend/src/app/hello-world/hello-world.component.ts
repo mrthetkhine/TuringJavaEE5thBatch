@@ -21,11 +21,12 @@ export class HelloWorldComponent implements OnInit{
   }
   ngDoCheck()
   {
-    console.log('DoCheck');
+    console.log('HelloWorld DoCheck');
   }
   ngOnInit() {
    console.log('OnInit');
   }
+  /*
   ngAfterContentInit()
   {
     console.log('ngAfterContentInit');
@@ -45,7 +46,7 @@ export class HelloWorldComponent implements OnInit{
   ngOnDestroy()
   {
     console.log('ngOnDestroy');
-  }
+  }*/
   btnClickHandler($event:Event)
   {
     console.log('Btn click');

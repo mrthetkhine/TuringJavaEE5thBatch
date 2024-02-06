@@ -1,2 +1,3 @@
 ng generate component component/HelloWorld
 ng generate class models/User --type=model
+ng generate service services/Todo
