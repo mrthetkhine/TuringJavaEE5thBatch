@@ -3,4 +3,10 @@
     <button type="button"
             class="btn btn-primary"
             (click)="deleteBtnHandler($event)">Delete</button>
+  <a [routerLink]="['/todos', todo.id]">
+    <span class="badge">{{ todo.id }}</span>{{ todo.title }}
+  </a>
+  <button type="button"
+          class="btn btn-primary"
+          (click)="gotoTodoDetails()">Go</button>
 </div>

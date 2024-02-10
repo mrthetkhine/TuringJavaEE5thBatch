@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {HelloWorldComponent} from "./hello-world/hello-world.component";
 import {ListDemoComponent} from "./list-demo/list-demo.component";
 import {CommonModule} from "@angular/common";
@@ -21,6 +21,11 @@ import {SizerComponent} from "./component/twowaybinding/sizer/sizer.component";
 import {DirectiveDemoComponent} from "./component/directive-demo/directive-demo.component";
 import {TrackByDemoComponent} from "./component/track-by-demo/track-by-demo.component";
 import {SignalDemoComponent} from "./component/signal-demo/signal-demo.component";
+import {FirstPageComponent} from "./pages/first-page/first-page.component";
+import {SecondPageComponent} from "./pages/second-page/second-page.component";
+import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormDemoComponent} from "./reactive-form-demo/reactive-form-demo.component";
 
 
 @Component({
@@ -28,6 +33,10 @@ import {SignalDemoComponent} from "./component/signal-demo/signal-demo.component
   standalone: true,
   imports: [
     RouterOutlet,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive,
     HelloWorldComponent,
     ListDemoComponent,
     ImageDemoComponent,
@@ -45,6 +54,10 @@ import {SignalDemoComponent} from "./component/signal-demo/signal-demo.component
     DirectiveDemoComponent,
     TrackByDemoComponent,
     SignalDemoComponent,
+    FirstPageComponent,
+    SecondPageComponent,
+    NotFoundPageComponent,
+    ReactiveFormDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

@@ -1,10 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Todo} from "../../models/todo.model";
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+  ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
@@ -14,7 +18,9 @@ export class TodoComponent {
 
   @Output()
   onDelete = new EventEmitter<Todo>();
-
+  constructor(
+    private router:Router,
+    private route: ActivatedRoute) {}
   ngOnChanges()
   {
     console.log('OnChange');
@@ -28,5 +34,9 @@ export class TodoComponent {
     console.log('Todo.deleteBtnHandler ',event);
     event.preventDefault();
     this.onDelete.emit(this.todo);
+  }
+  gotoTodoDetails()
+  {
+    this.router.navigate([`todos/${this.todo.id}`]);
   }
 }

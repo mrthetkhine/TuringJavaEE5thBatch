@@ -13,12 +13,36 @@
 
 <main class="main">
   <div class="content">
-    <nav>
-      <ul>
-        <li><a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page">First Component</a></li>
-        <li><a routerLink="/second-component" routerLinkActive="active" ariaCurrentWhenActive="page">Second Component</a></li>
-      </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/first-page" routerLinkActive="active" ariaCurrentWhenActive="page">First Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/second-page" routerLinkActive="active" ariaCurrentWhenActive="page">Second Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+
+      </div>
     </nav>
+
     <!--  <app-hello-world/>-->
     <!--<app-list-demo/>-->
   <!--  <app-image-demo/>-->
@@ -53,7 +77,8 @@
    <!-- <app-directive-demo/>-->
     <!--<app-track-by-demo/>-->
     <!--<app-todo-list-demo></app-todo-list-demo>-->
-    <app-signal-demo/>
+   <!-- <app-signal-demo/>-->
+
   </div>
 </main>
 
@@ -64,6 +89,6 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
 <router-outlet />
+
+
