@@ -2,3 +2,6 @@ ng generate component component/HelloWorld
 ng generate class models/User --type=model
 ng generate service services/Todo
 ng generate guard auth-route-guard
+ng add @angular/localize
+ng extract-i18n --output-path src/locale
+ng serve --configuration=fr

@@ -17,8 +17,8 @@ export class ReactiveFormDemoComponent {
 
   userForm = this.fb.group({
     firstName:['', [Validators.required,Validators.minLength(3),Validators.maxLength(10)]],
-    lastName: ['', Validators.required],
-    email : ['', Validators.required],
+    lastName: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(10)]],
+    email : ['', [Validators.required,Validators.email]],
   });
   updateUser()
   {

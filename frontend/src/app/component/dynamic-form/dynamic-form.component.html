@@ -1,0 +1,16 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" >
+<div formArrayName="aliases">
+  <h2>Aliases</h2>
+  <button type="button"
+          class="btn btn-primary"
+          (click)="addAlias()">+ Add another alias</button>
+  <div *ngFor="let alias of aliases.controls; let i=index">
+    <!-- The repeated alias template -->
+    <label for="alias-{{ i }}">Alias:</label>
+    <input id="alias-{{ i }}" type="text" [formControlName]="i">
+  </div>
+</div>
+  <button type="submit" class="btn btn-primary">
+    Submit
+  </button>
+</form>

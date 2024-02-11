@@ -27,7 +27,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent,
     canActivate: [authRouteGuardGuard],},
   { path: 'todos/:id', component: TodoListComponent },
-  { path: '',   redirectTo: '/first-page', pathMatch: 'full' },
+  /*{ path: '',   redirectTo: '/first-page', pathMatch: 'full' },*/
   { path: '**', component: NotFoundPageComponent },
 ];
 

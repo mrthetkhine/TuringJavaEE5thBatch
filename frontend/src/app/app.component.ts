@@ -24,8 +24,10 @@ import {SignalDemoComponent} from "./component/signal-demo/signal-demo.component
 import {FirstPageComponent} from "./pages/first-page/first-page.component";
 import {SecondPageComponent} from "./pages/second-page/second-page.component";
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ReactiveFormDemoComponent} from "./reactive-form-demo/reactive-form-demo.component";
+import {DynamicFormComponent} from "./component/dynamic-form/dynamic-form.component";
+import {TemplateFormComponent} from "./component/template-form/template-form.component";
 
 
 @Component({
@@ -35,6 +37,7 @@ import {ReactiveFormDemoComponent} from "./reactive-form-demo/reactive-form-demo
     RouterOutlet,
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     RouterLink,
     RouterLinkActive,
     HelloWorldComponent,
@@ -58,6 +61,8 @@ import {ReactiveFormDemoComponent} from "./reactive-form-demo/reactive-form-demo
     SecondPageComponent,
     NotFoundPageComponent,
     ReactiveFormDemoComponent,
+    DynamicFormComponent,
+    TemplateFormComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
