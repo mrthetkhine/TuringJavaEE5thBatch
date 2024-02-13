@@ -1,0 +1,16 @@
+<html>
+    <textarea id="code">
+
+    </textarea>
+    <div id="container">
+
+    </div>
+    <button type="button" id="btnAdd">Add</button>
+    <script>
+        const btnAdd = document.getElementById('btnAdd');
+        btnAdd.addEventListener('click',(event)=>{
+            let data = document.getElementById("code").value;
+            document.getElementById('container').innerHTML = data;
+        });
+    </script>        
+</html>

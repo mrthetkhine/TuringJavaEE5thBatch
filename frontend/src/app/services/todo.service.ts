@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Todo} from "../models/todo.model";
+import {TodoComponent} from "../component/todo/todo.component";
+import {CommonModule} from "@angular/common";
+import {HttpClient} from "@angular/common/http";
+import {Observable, Observer} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoService {
   todos:Array<Todo> = [
@@ -23,10 +27,23 @@ export class TodoService {
         title:'Task 4'
     }
     ]
-  constructor() {
+  constructor(private httpClient:HttpClient) {
     console.log('TodoService constructor');
-  }
+    //this.loadAllTodo();
 
+  }
+  loadAllTodo():Observable<Todo[]>
+  {
+    return this.httpClient.get<Todo[]>('https://jsonplaceholder.typicode.com/todos');
+      /*
+      .subscribe(data=>{
+        console.log('Todo ',data);
+        this.todos = data;
+        return this.todos;
+      });
+
+       */
+  }
   getAllTodos():Array<Todo>
   {
     return this.todos;

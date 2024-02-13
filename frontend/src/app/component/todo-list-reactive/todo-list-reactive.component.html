@@ -1,0 +1,11 @@
+<div>
+  <h1>Todo list reactive </h1>
+  <div *ngFor="let todo of todos | async">
+      <div>
+        {{todo.title}}
+        <button type="button"
+                class="btn btn-primary"
+                (click)="deleteTodo(todo)">Delete</button>
+      </div>
+</div>
+</div>

@@ -28,6 +28,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ReactiveFormDemoComponent} from "./reactive-form-demo/reactive-form-demo.component";
 import {DynamicFormComponent} from "./component/dynamic-form/dynamic-form.component";
 import {TemplateFormComponent} from "./component/template-form/template-form.component";
+import {PipeDemoComponent} from "./component/pipe-demo/pipe-demo.component";
+import {TodoListReactiveComponent} from "./component/todo-list-reactive/todo-list-reactive.component";
+import {TodoCounterComponent} from "./component/todo-counter/todo-counter.component";
+
 
 
 @Component({
@@ -63,6 +67,9 @@ import {TemplateFormComponent} from "./component/template-form/template-form.com
     ReactiveFormDemoComponent,
     DynamicFormComponent,
     TemplateFormComponent,
+    PipeDemoComponent,
+    TodoListReactiveComponent,
+    TodoCounterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
