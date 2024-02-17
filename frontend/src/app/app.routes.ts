@@ -7,9 +7,13 @@ import {ChildBComponent} from "./pages/child-b/child-b.component";
 import {TodoListComponent} from "./pages/todo-list/todo-list.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {authRouteGuardGuard} from "./auth-route-guard.guard";
+import {MoviesListComponent} from "./pages/movies-list/movies-list.component";
+import {MovieDetailsComponent} from "./component/movie-details/movie-details.component";
 const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('Title of a');
 export const routes: Routes = [
-  { path: 'first-page',
+  { path: 'movies', component: MoviesListComponent },
+  {
+    path: 'first-page',
     component: FirstPageComponent,
     children:[
       {
@@ -24,6 +28,8 @@ export const routes: Routes = [
     ]
   },
   { path: 'second-page', component: SecondPageComponent },
+  { path: 'movies', component: MoviesListComponent },
+  { path: 'movie-details/:id', component: MovieDetailsComponent },
   { path: 'home', component: HomeComponent,
     canActivate: [authRouteGuardGuard],},
   { path: 'todos/:id', component: TodoListComponent },

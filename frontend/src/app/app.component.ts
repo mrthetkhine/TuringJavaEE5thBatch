@@ -31,6 +31,7 @@ import {TemplateFormComponent} from "./component/template-form/template-form.com
 import {PipeDemoComponent} from "./component/pipe-demo/pipe-demo.component";
 import {TodoListReactiveComponent} from "./component/todo-list-reactive/todo-list-reactive.component";
 import {TodoCounterComponent} from "./component/todo-counter/todo-counter.component";
+import {ModalDemoComponent} from "./component/modal-demo/modal-demo.component";
 
 
 
@@ -70,6 +71,7 @@ import {TodoCounterComponent} from "./component/todo-counter/todo-counter.compon
     PipeDemoComponent,
     TodoListReactiveComponent,
     TodoCounterComponent,
+    ModalDemoComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

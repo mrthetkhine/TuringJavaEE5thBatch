@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Todo} from "../models/todo.model";
+import {Movie} from "../models/movie.model";
 
 @Injectable({
   providedIn: 'root'

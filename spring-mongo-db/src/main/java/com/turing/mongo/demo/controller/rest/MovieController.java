@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,8 @@ import com.turing.mongo.demo.service.MovieService;
 import com.turing.mongo.demo.service.ReviewService;
 
 import jakarta.validation.Valid;
+
+@CrossOrigin(value = { "http://localhost:4200/" })
 @Slf4j
 @RestController
 @RequestMapping("/api/movies")
