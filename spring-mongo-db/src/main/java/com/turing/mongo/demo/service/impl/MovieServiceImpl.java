@@ -67,8 +67,12 @@ public class MovieServiceImpl implements MovieService{
 		MovieDetail movieDetails =modelMapper.map(movieDto.getDetails(), MovieDetail.class); 
 		movie.setDetails(movieDetails);
 		
-		List<Actor> actors = modelMapper.map(movieDto.getActors(), new TypeToken<List<Actor>>() {}.getType());
-		movie.setActors(actors);
+		if(movieDto.getActors()!=null)
+		{
+			List<Actor> actors = modelMapper.map(movieDto.getActors(), new TypeToken<List<Actor>>() {}.getType());
+			movie.setActors(actors);
+			
+		}
 		
 		return movie;
 	}

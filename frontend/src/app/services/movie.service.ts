@@ -5,6 +5,7 @@ import {Movie} from "../models/movie.model";
 import {HttpClient} from "@angular/common/http";
 import {BASE_URL} from "./Api";
 
+const API  = BASE_URL+"/api/movies";
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class MovieService {
   }
   loadAllMovies()
   {
-    this.http.get<Movie[]>(BASE_URL+`/api/movies`)
+    this.http.get<Movie[]>(API)
       .subscribe(movies=>{
         this._movieData = movies;
         this.emitChange();
@@ -25,5 +26,29 @@ export class MovieService {
   }
   private emitChange() {
     this._movies.next(this._movieData);
+  }
+  saveMovie(movie:Movie)
+  {
+    return this.http.post<Movie>(API,movie).subscribe(movie=>{
+      this.addMovie(movie);
+    });
+  }
+  addMovie(movie:Movie)
+  {
+    this._movieData.push(movie);
+    this.emitChange();
+  }
+  _deleteMovie(movie:Movie)
+  {
+    this._movieData = this._movieData.filter(m=>movie.id!=m.id);
+    this.emitChange();
+  }
+
+  deleteMovie(movie:Movie,callback:()=>void )
+  {
+    this.http.delete<Movie>(API+"/"+movie.id).subscribe((m:Movie)=>{
+      this._deleteMovie(movie);
+      callback();
+    });
   }
 }

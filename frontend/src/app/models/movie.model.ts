@@ -2,7 +2,7 @@ import {Actor} from "./actor.model";
 
 interface MovieDetail
 {
-  id:null| string;
+  id?:string;
   details:string;
 }
 export interface Movie {
@@ -11,6 +11,6 @@ export interface Movie {
   "year": number;
   "director": string;
   "details":MovieDetail;
-  "genres": null|Array<string>;
-  "actors":Array<Actor>;
+  "genres"?: Array<string>;
+  "actors"?:Array<Actor>;
 }
