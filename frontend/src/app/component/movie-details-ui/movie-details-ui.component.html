@@ -1,0 +1,42 @@
+<table class="table table-striped">
+  <thead>
+    <th>Data</th>
+    <th>Value</th>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Name</td>
+    <td>{{movie.name}}</td>
+  </tr>
+  <tr>
+    <td>Year</td>
+    <td>{{movie.year}}</td>
+  </tr>
+  <tr>
+    <td>Director</td>
+    <td>{{movie.director}}</td>
+  </tr>
+  <tr>
+    <td>Details</td>
+    <td>{{movie.details.details}}</td>
+  </tr>
+  <tr>
+    <td>Genres</td>
+    <td>
+      <div *ngFor="let genre of movie.genres">
+        <div>{{genre}}</div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Actors</td>
+    <td>
+      <div *ngFor="let actor of movie.actors">
+        <div>{{actor.firstName + ' '+actor.lastName}}</div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+
+
+</table>

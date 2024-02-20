@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import Swal from 'sweetalert2'
 import {Movie} from "../../models/movie.model";
 import {Router} from "@angular/router";
@@ -15,7 +15,7 @@ export class MovieUiComponent {
   @Input()
   movie!:Movie;
 
-
+  @Output() onEditClick = new EventEmitter<Movie>();
 
   constructor(private router:Router,
               private movieService:MovieService) {
@@ -53,5 +53,10 @@ export class MovieUiComponent {
       text: "Your movie has been deleted.",
       icon: "success"
     });
+  }
+  showEdit()
+  {
+    console.log('Show edit');
+    this.onEditClick.emit(this.movie);
   }
 }

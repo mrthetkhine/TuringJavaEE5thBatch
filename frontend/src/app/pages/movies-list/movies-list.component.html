@@ -1,5 +1,7 @@
 
-<app-movie-form></app-movie-form>
+<app-movie-form #movieForm>
+
+</app-movie-form>
 <div>
   <table class="table table-striped">
     <thead>
@@ -13,7 +15,8 @@
     </thead>
     <tbody>
       <tr app-movie-ui *ngFor="let movie of movies"
-          [movie]="movie">
+          [movie]="movie"
+          (onEditClick)="showEditDialog($event)">
 
       </tr>
 

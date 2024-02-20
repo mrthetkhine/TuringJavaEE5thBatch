@@ -1,1 +1,8 @@
-<p>movie-details works!</p>
+<div>
+  <app-movie-details-ui [movie]="movie"/>
+  <div>
+    <div *ngFor="let review of reviews">
+      {{review.review}}
+    </div>
+  </div>
+</div>

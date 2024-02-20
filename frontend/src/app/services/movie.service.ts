@@ -24,6 +24,10 @@ export class MovieService {
         this.emitChange();
       })
   }
+  getMovieById(id:string)
+  {
+    return this._movieData.find(movie=>movie.id==id);
+  }
   private emitChange() {
     this._movies.next(this._movieData);
   }
@@ -38,12 +42,17 @@ export class MovieService {
     this._movieData.push(movie);
     this.emitChange();
   }
-  _deleteMovie(movie:Movie)
+  updateMovie(movie:Movie)
   {
-    this._movieData = this._movieData.filter(m=>movie.id!=m.id);
+    this.http.put<Movie>(API+"/"+movie.id,movie).subscribe((movie:any)=>{
+      this._updateMovie(movie.data);
+    });
+  }
+  _updateMovie(movie:Movie)
+  {
+    this._movieData = this._movieData.map(m=>m.id== movie.id?movie: m);
     this.emitChange();
   }
-
   deleteMovie(movie:Movie,callback:()=>void )
   {
     this.http.delete<Movie>(API+"/"+movie.id).subscribe((m:Movie)=>{
@@ -51,4 +60,11 @@ export class MovieService {
       callback();
     });
   }
+  _deleteMovie(movie:Movie)
+  {
+    this._movieData = this._movieData.filter(m=>movie.id!=m.id);
+    this.emitChange();
+  }
+
+
 }

@@ -1,6 +1,9 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New Movie</h4>
+    <h4 class="modal-title" id="modal-basic-title">
+      {{this.editMode?'Edit movie':'New Movie'}}
+
+    </h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -19,7 +22,7 @@
             Name must be at least 4 characters long.
           </div>
           <div *ngIf="name.errors?.['maxlength']">
-            Name must be at most 10 characters long.
+            Name must be at most 15 characters long.
           </div>
         </div>
 
@@ -109,11 +112,13 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-primary"
             [disabled]="!movieForm.valid"
-            (click)="saveMovie()">Save</button>
+            (click)="saveOrUpdateMovie()">
+      {{this.editMode?'Update':'Save'}}
+    </button>
   </div>
 </ng-template>
 <div>
   <button type="button"
           class="btn btn-primary"
-          (click)="open(content)">New Movie</button>
+          (click)="openDialogForNew()">New Movie</button>
 </div>

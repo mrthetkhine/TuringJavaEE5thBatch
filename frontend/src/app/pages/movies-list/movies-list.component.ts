@@ -1,4 +1,4 @@
-import {Component, inject, TemplateRef} from '@angular/core';
+import {Component, ElementRef, inject, TemplateRef, ViewChild} from '@angular/core';
 import {Movie} from "../../models/movie.model";
 import {CommonModule} from "@angular/common";
 import {MovieUiComponent} from "../../component/movie-ui/movie-ui.component";
@@ -24,7 +24,7 @@ export class MoviesListComponent {
 
   movies:Array<Movie> = [
   ];
-
+  @ViewChild('movieForm') movieForm!: MovieFormComponent;
 
   constructor(
               private movieService:MovieService) {
@@ -34,4 +34,10 @@ export class MoviesListComponent {
     });
   }
 
+  showEditDialog(movie:Movie)
+  {
+    //console.log('Show edit movie ',movie);
+    this.movieForm.showEditDialog(movie);
+    //console.log('Movieform ',this.movieForm);
+  }
 }
