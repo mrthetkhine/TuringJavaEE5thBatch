@@ -1,0 +1,9 @@
+.review-container
+{
+  border: 1px solid gray;
+  min-width: 200px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  border-radius: 10px;
+  padding:10px;
+}

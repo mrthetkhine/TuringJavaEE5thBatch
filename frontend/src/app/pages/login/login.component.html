@@ -1,0 +1,40 @@
+<div>
+  <h2>Login</h2>
+  <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control"
+             formControlName="username"
+             id="username" aria-describedby="emailHelp" placeholder="Username">
+      <div
+        *ngIf="username.invalid && (username.dirty || username.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="username.errors?.['required']">Username is required.</div>
+        <div *ngIf="username.errors?.['minlength']">
+          Username must be at least 4 characters long.
+        </div>
+        <div *ngIf="username.errors?.['maxlength']">
+          Username must be at most 15 characters long.
+        </div>
+      </div>
+    </div>
+      <div class="form-group">
+        <label for="password">Username</label>
+        <input type="text" class="form-control"
+               formControlName="password"
+               type="password"
+               id="password" aria-describedby="emailHelp" placeholder="Password">
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="password.errors?.['required']">Password is required.</div>
+
+        </div>
+      </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Login</button>
+    </div>
+  </form>
+</div>

@@ -1,8 +1,61 @@
 <div>
+  <button type="button"
+        class="btn btn-primary"
+        (click)="back()">Back</button>
   <app-movie-details-ui [movie]="movie"/>
-  <div>
-    <div *ngFor="let review of reviews">
-      {{review.review}}
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{editMode?'Update Review':'New Review'}}
+
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
+    <div class="modal-body">
+      <form [formGroup]="reviewForm"  (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="review">Rating </label>
+          <ngb-rating [(rate)]="rating"
+                      />
+        </div>
+        <div></div>
+      <div class="form-group">
+        <label for="review">Review</label>
+        <input type="text" class="form-control"
+               formControlName="review"
+               id="review" aria-describedby="emailHelp" placeholder="Review">
+        <div
+          *ngIf="review.invalid && (review.dirty || review.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="review.errors?.['required']">Review is required.</div>
+          <div *ngIf="review.errors?.['minlength']">
+            Review must be at least 4 characters long.
+          </div>
+          <div *ngIf="review.errors?.['maxlength']">
+            Review must be at most 15 characters long.
+          </div>
+        </div>
+
+      </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary"
+              [disabled]="!reviewForm.valid"
+              (click)="saveOrUpdateReview()">
+        {{editMode?'Update':'Save'}}
+      </button>
+    </div>
+  </ng-template>
+  <div>
+    <button type="button"
+          class="btn btn-primary"
+          (click)="showNewReviewModal()">New Review</button>
+    <app-review *ngFor="let review of reviews"
+                [review]="review"
+                (onEditClick)="onEditReviewClick($event)">
+
+    </app-review>
   </div>
 </div>

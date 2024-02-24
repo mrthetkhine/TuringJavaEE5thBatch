@@ -1,0 +1,13 @@
+<div class="review-container">
+   <ngb-rating [(rate)]="review.rating"
+                     [readonly]=true />
+  <br/>
+  {{review.review}}
+  <button type="button"
+          class="btn btn-primary"
+          (click)="showEditDialog()">Edit</button>
+  &nbsp;
+  <button type="button"
+          class="btn btn-danger"
+          (click)="showDeleteDialog()">Delete</button>
+</div>

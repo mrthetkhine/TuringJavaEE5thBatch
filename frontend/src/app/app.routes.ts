@@ -9,6 +9,7 @@ import {HomeComponent} from "./pages/home/home.component";
 import {authRouteGuardGuard} from "./auth-route-guard.guard";
 import {MoviesListComponent} from "./pages/movies-list/movies-list.component";
 import {MovieDetailsComponent} from "./component/movie-details/movie-details.component";
+import {LoginComponent} from "./pages/login/login.component";
 const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('Title of a');
 export const routes: Routes = [
   { path: 'movies', component: MoviesListComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'second-page', component: SecondPageComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'movies', component: MoviesListComponent },
   { path: 'movie-details/:id', component: MovieDetailsComponent },
   { path: 'home', component: HomeComponent,
