@@ -5,3 +5,4 @@ ng generate guard auth-route-guard
 ng add @angular/localize
 ng extract-i18n --output-path src/locale
 ng serve --configuration=fr
+ng generate interceptor TokenInterceptor

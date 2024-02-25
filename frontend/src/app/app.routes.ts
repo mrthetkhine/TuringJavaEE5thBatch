@@ -10,9 +10,10 @@ import {authRouteGuardGuard} from "./auth-route-guard.guard";
 import {MoviesListComponent} from "./pages/movies-list/movies-list.component";
 import {MovieDetailsComponent} from "./component/movie-details/movie-details.component";
 import {LoginComponent} from "./pages/login/login.component";
+import {LogoutComponent} from "./pages/logout/logout.component";
 const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('Title of a');
 export const routes: Routes = [
-  { path: 'movies', component: MoviesListComponent },
+
   {
     path: 'first-page',
     component: FirstPageComponent,
@@ -30,10 +31,19 @@ export const routes: Routes = [
   },
   { path: 'second-page', component: SecondPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'movies', component: MoviesListComponent },
-  { path: 'movie-details/:id', component: MovieDetailsComponent },
-  { path: 'home', component: HomeComponent,
-    canActivate: [authRouteGuardGuard],},
+  { path: 'logout', component: LogoutComponent },
+  { path: 'movies',
+    component: MoviesListComponent,
+    canActivate: [authRouteGuardGuard]
+  },
+  { path: 'movie-details/:id',
+    component: MovieDetailsComponent,
+    canActivate: [authRouteGuardGuard]
+  },
+  { path: 'home',
+    component: HomeComponent,
+    canActivate: [authRouteGuardGuard],
+  },
   { path: 'todos/:id', component: TodoListComponent },
   /*{ path: '',   redirectTo: '/first-page', pathMatch: 'full' },*/
   { path: '**', component: NotFoundPageComponent },

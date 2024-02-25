@@ -32,6 +32,7 @@ import {PipeDemoComponent} from "./component/pipe-demo/pipe-demo.component";
 import {TodoListReactiveComponent} from "./component/todo-list-reactive/todo-list-reactive.component";
 import {TodoCounterComponent} from "./component/todo-counter/todo-counter.component";
 import {ModalDemoComponent} from "./component/modal-demo/modal-demo.component";
+import {AuthService} from "./services/auth.service";
 
 
 
@@ -83,7 +84,12 @@ export class AppComponent {
     name : 'Tk',
     email:'somewhere@gmail.com'
   }
-
+  constructor(public authService:AuthService) {
+  }
+  ngOnInit()
+  {
+    this.authService.loadToken();
+  }
   clickHandler(count:number)
   {
     console.log("Count in parent ",count);

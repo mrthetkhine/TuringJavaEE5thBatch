@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+@CrossOrigin(value = { "http://localhost:4200/" })
 @RestController
 @Slf4j
 public class AuthController {

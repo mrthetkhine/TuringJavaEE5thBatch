@@ -22,10 +22,16 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.isAuthenticated()">
+            <a class="nav-link" routerLink="/logout" routerLinkActive="active" ariaCurrentWhenActive="page">Logout</a>
+          </li>
+          <li class="nav-item" *ngIf="authService.isAuthenticated()">
             <a class="nav-link" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="authService.isAuthenticated()">
             <a class="nav-link" routerLink="/movies" routerLinkActive="active" ariaCurrentWhenActive="page">Movies</a>
           </li>
           <!--<li class="nav-item">

@@ -31,7 +31,7 @@ public class WebReactiveSecurityConfig {
 	            "/webjars/**",
 	            "/login/**",
 	            "/register/**",
-	            "/api/movies/**",
+	            /* "/api/movies/**",*/
 	            "/favicon.ico",
 	    };
 

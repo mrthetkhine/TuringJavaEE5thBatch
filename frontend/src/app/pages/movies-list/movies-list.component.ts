@@ -28,6 +28,7 @@ export class MoviesListComponent {
 
   constructor(
               private movieService:MovieService) {
+    this.movieService.loadAllMovies();
     this.movieService.movies.subscribe(movies=>{
       console.log(movies);
       this.movies =movies;
